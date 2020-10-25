@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_CLAS" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <VSEOCLASS>
+    <CLSNAME>ZCL_DO_IT</CLSNAME>
+    <LANGU>E</LANGU>
+    <DESCRIPT>Data Object - Internal Table Class</DESCRIPT>
+    <STATE>1</STATE>
+    <CLSCCINCL>X</CLSCCINCL>
+    <FIXPT>X</FIXPT>
+    <UNICODE>X</UNICODE>
+   </VSEOCLASS>
+   <DESCRIPTIONS>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_DO_IT</CLSNAME>
+     <CMPNAME>CO_LINK_DATA_FILTER</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Object relationship</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_DO_IT</CLSNAME>
+     <CMPNAME>CO_MOD_CREATE</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Row Modification</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_DO_IT</CLSNAME>
+     <CMPNAME>CO_MOD_DELETE</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Row Modification</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_DO_IT</CLSNAME>
+     <CMPNAME>CO_MOD_EMPTY</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Row Modification</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_DO_IT</CLSNAME>
+     <CMPNAME>CO_MOD_ORIGINAL</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Row Modification</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_DO_IT</CLSNAME>
+     <CMPNAME>CO_MOD_UPDATE</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Row Modification</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_DO_IT</CLSNAME>
+     <CMPNAME>LG_AUTO_DISABLE_FILTER</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>When all Rows are Filtered out disable filter</DESCRIPT>
+    </SEOCOMPOTX>
+   </DESCRIPTIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>
