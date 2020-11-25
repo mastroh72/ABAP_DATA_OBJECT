@@ -1072,7 +1072,7 @@ ENDFORM.                    " create_data_objects
 *  -->  FIELD                                                         *
 *---------------------------------------------------------------------*
 FORM ask_complex_selections
-  TABLES it_selection TYPE zslot_tt_do_selection_options
+  TABLES it_selection TYPE zif_do_seo=>tt_selection_options
   USING pfield TYPE any
         ptablename TYPE tabname
         pfieldname TYPE fieldname

@@ -1,6 +1,4 @@
-FUNCTION-POOL ztb_tools_01.                 "MESSAGE-ID ..
-
-
+FUNCTION-POOL ZDO_TB_TOOLS_01.                 "MESSAGE-ID ..
 
 
 
@@ -20,7 +18,8 @@ TYPE-POOLS :
   sscr,
   rsds,
   cxtab,
-  zslot.
+  ZDO01.
+
 
 
 DATA :
@@ -32,7 +31,7 @@ DATA :
   g_filter_on          TYPE char1,
   g_field              TYPE  char30,
   g_line               TYPE i,
-  git_selection        TYPE  zslot_tt_do_selection_options
+  git_selection        TYPE  zif_do_seo=>tt_selection_options
     WITH HEADER LINE,
   git_filter           TYPE ztt_do_filter
     WITH HEADER LINE,
@@ -564,8 +563,8 @@ CLASS cl_filter IMPLEMENTATION.
     FIELD-SYMBOLS :
       <low>          TYPE any,
       <high>         TYPE any,
-      <it_selection> TYPE zslot_tt_do_selection_options,
-      <wa_selection> TYPE LINE OF zslot_tt_do_selection_options,
+      <it_selection> TYPE zif_do_seo=>tt_selection_options,
+      <wa_selection> TYPE LINE OF zif_do_seo=>tt_selection_options,
       <wa_rowobject> TYPE LINE OF ztt_do_filter,
       <it_rowobject> TYPE ztt_do_filter.
 
@@ -617,14 +616,14 @@ CLASS cl_filter IMPLEMENTATION.
 
     DATA:
       firstrecord  TYPE sytabix,
-      wa_selection TYPE LINE OF zslot_tt_do_selection_options,
+      wa_selection TYPE LINE OF zif_do_seo=>tt_selection_options,
       ilines       TYPE i.
 
     FIELD-SYMBOLS :
       <low>          TYPE any,
       <high>         TYPE any,
-      <it_selection> TYPE zslot_tt_do_selection_options,
-      <wa_selection> TYPE LINE OF zslot_tt_do_selection_options,
+      <it_selection> TYPE zif_do_seo=>tt_selection_options,
+      <wa_selection> TYPE LINE OF zif_do_seo=>tt_selection_options,
       <wa>           TYPE LINE OF ztt_do_filter.
 
     ASSIGN:
@@ -735,8 +734,8 @@ CLASS cl_filter IMPLEMENTATION.
     FIELD-SYMBOLS :
       <low>          TYPE any,
       <high>         TYPE any,
-      <it_selection> TYPE zslot_tt_do_selection_options,
-      <wa_selection> TYPE LINE OF zslot_tt_do_selection_options,
+      <it_selection> TYPE zif_do_seo=>tt_selection_options,
+      <wa_selection> TYPE LINE OF zif_do_seo=>tt_selection_options,
       <data>         TYPE any,
       <it_rowobject> TYPE ztt_do_filter,
       <wa_rowobject> TYPE LINE OF ztt_do_filter,
@@ -822,12 +821,12 @@ CLASS cl_filter IMPLEMENTATION.
 
   METHOD it_selection_dialog.
     DATA:
-      wa_selection   TYPE LINE OF zslot_tt_do_selection_options.
+      wa_selection   TYPE LINE OF zif_do_seo=>tt_selection_options.
     FIELD-SYMBOLS:
       <low>          TYPE any,
       <high>         TYPE any,
-      <wa_selection> TYPE LINE OF zslot_tt_do_selection_options,
-      <it_selection> TYPE zslot_tt_do_selection_options,
+      <wa_selection> TYPE LINE OF zif_do_seo=>tt_selection_options,
+      <it_selection> TYPE zif_do_seo=>tt_selection_options,
       <it_rowobject> TYPE  ztt_do_filter,
       <wa_rowobject> TYPE LINE OF  ztt_do_filter.
 
@@ -886,8 +885,8 @@ CLASS cl_filter IMPLEMENTATION.
       ilines   TYPE i,
       icon(50) TYPE c.
     FIELD-SYMBOLS :
-      <it_selection> TYPE zslot_tt_do_selection_options,
-      <wa_selection> TYPE LINE OF zslot_tt_do_selection_options,
+      <it_selection> TYPE zif_do_seo=>tt_selection_options,
+      <wa_selection> TYPE LINE OF zif_do_seo=>tt_selection_options,
       <wa>           TYPE LINE OF ztt_do_filter.
 
     ASSIGN:

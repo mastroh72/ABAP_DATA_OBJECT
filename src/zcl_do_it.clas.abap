@@ -1,431 +1,431 @@
-class ZCL_DO_IT definition
-  public
-  inheriting from ZCL_DO
-  create public .
+CLASS zcl_do_it DEFINITION
+  PUBLIC
+  INHERITING FROM zcl_do
+  CREATE PUBLIC .
 
-public section.
-  type-pools ABAP .
-  type-pools CXTAB .
-  type-pools ZDO .
-  type-pools ZSLOT .
+  PUBLIC SECTION.
+    TYPE-POOLS abap .
+    TYPE-POOLS cxtab .
+*  type-pools ZDO .
+*  type-pools ZIF_DO_SEO=>ZSLOT .
 
-  constants CO_INVISIBLE type CHAR1 value 'X' ##NO_TEXT.
-  constants CO_VISIBLE type CHAR1 value SPACE ##NO_TEXT.
-  constants CO_TC_VISIBLE type CHAR1 value '0' ##NO_TEXT.
-  constants CO_TC_INVISIBLE type CHAR1 value '1' ##NO_TEXT.
-  constants CO_CHAR_0 type ZDO_DO_HEX_SEPERATOR value '00' ##NO_TEXT.
-  constants CO_CHAR_1 type ZDO_DO_HEX_SEPERATOR value '01' ##NO_TEXT.
-  constants CO_CHAR_2 type ZDO_DO_HEX_SEPERATOR value '02' ##NO_TEXT.
-  constants CO_FALSE type CHAR1 value SPACE ##NO_TEXT.
-  constants CO_FIELD_LIST type CHAR1 value ',' ##NO_TEXT.
-  constants CO_LINK_REPOSITION type ZDO_OBJECT_RELATIONSHIP value 'REPOS' ##NO_TEXT.
-  constants CO_LINK_DATA type ZDO_OBJECT_RELATIONSHIP value 'DATA' ##NO_TEXT.
-  constants CO_LINK_DATA_FILTER type ZDO_OBJECT_RELATIONSHIP value 'DATAFILTER' ##NO_TEXT.
-  constants CO_MANDT type FIELDNAME value 'MANDT' ##NO_TEXT.
-  constants CO_MOD_CREATE type ZDO_ROWMOD value 'C' ##NO_TEXT.
-  constants CO_MOD_DELETE type ZDO_ROWMOD value 'D' ##NO_TEXT.
-  constants CO_MOD_EMPTY type ZDO_ROWMOD value 'E' ##NO_TEXT.
-  constants CO_MOD_ORIGINAL type ZDO_ROWMOD value 'O' ##NO_TEXT.
-  constants CO_MOD_UPDATE type ZDO_ROWMOD value 'U' ##NO_TEXT.
-  constants CO_ROW_DB_CNT type FIELDNAME value 'ROWDBCNT' ##NO_TEXT.
-  constants CO_ROW_FILTER type FIELDNAME value 'ROWFILTEROUT' ##NO_TEXT.
-  constants CO_ROW_MARKER type FIELDNAME value 'ROWMARKED' ##NO_TEXT.
-  constants CO_ROW_MOD type FIELDNAME value 'ROWMOD' ##NO_TEXT.
-  constants CO_ROW_SEQ type FIELDNAME value 'ROWSEQ' ##NO_TEXT.
-  constants CO_TAB type ZDO_DO_HEX_SEPERATOR value '09' ##NO_TEXT.
-  constants CO_TRUE type CHAR1 value 'X' ##NO_TEXT.
-  data PTR_DB_TB_WHERE type ref to ZCL_DO_SELECTION_OPTIONS read-only .
-  data PTR_RO_TB_MARK type ref to ZCL_DO_SELECTION_OPTIONS read-only .
-  data PTR_RO_TB_REPOS type ref to ZCL_DO_SELECTION_OPTIONS read-only .
-  data PTR_RO_TB_WHERE type ref to ZCL_DO_SELECTION_OPTIONS read-only .
-  data DB_ROWS_SELECTED type SYDBCNT read-only .
-  data RO_TB_ROWS type SYDBCNT read-only .
+    CONSTANTS co_invisible TYPE char1 VALUE 'X' ##NO_TEXT.
+    CONSTANTS co_visible TYPE char1 VALUE space ##NO_TEXT.
+    CONSTANTS co_tc_visible TYPE char1 VALUE '0' ##NO_TEXT.
+    CONSTANTS co_tc_invisible TYPE char1 VALUE '1' ##NO_TEXT.
+    CONSTANTS co_char_0 TYPE zif_do=>td_hex_seperator VALUE '00' ##NO_TEXT.
+    CONSTANTS co_char_1 TYPE zif_do=>td_hex_seperator VALUE '01' ##NO_TEXT.
+    CONSTANTS co_char_2 TYPE zif_do=>td_hex_seperator VALUE '02' ##NO_TEXT.
+    CONSTANTS co_false TYPE char1 VALUE space ##NO_TEXT.
+    CONSTANTS co_field_list TYPE char1 VALUE ',' ##NO_TEXT.
+    CONSTANTS co_link_reposition TYPE zdo_object_relationship VALUE 'REPOS' ##NO_TEXT.
+    CONSTANTS co_link_data TYPE zdo_object_relationship VALUE 'DATA' ##NO_TEXT.
+    CONSTANTS co_link_data_filter TYPE zdo_object_relationship VALUE 'DATAFILTER' ##NO_TEXT.
+    CONSTANTS co_mandt TYPE fieldname VALUE 'MANDT' ##NO_TEXT.
+    CONSTANTS co_mod_create TYPE zdo_rowmod VALUE 'C' ##NO_TEXT.
+    CONSTANTS co_mod_delete TYPE zdo_rowmod VALUE 'D' ##NO_TEXT.
+    CONSTANTS co_mod_empty TYPE zdo_rowmod VALUE 'E' ##NO_TEXT.
+    CONSTANTS co_mod_original TYPE zdo_rowmod VALUE 'O' ##NO_TEXT.
+    CONSTANTS co_mod_update TYPE zdo_rowmod VALUE 'U' ##NO_TEXT.
+    CONSTANTS co_row_db_cnt TYPE fieldname VALUE 'ROWDBCNT' ##NO_TEXT.
+    CONSTANTS co_row_filter TYPE fieldname VALUE 'ROWFILTEROUT' ##NO_TEXT.
+    CONSTANTS co_row_marker TYPE fieldname VALUE 'ROWMARKED' ##NO_TEXT.
+    CONSTANTS co_row_mod TYPE fieldname VALUE 'ROWMOD' ##NO_TEXT.
+    CONSTANTS co_row_seq TYPE fieldname VALUE 'ROWSEQ' ##NO_TEXT.
+    CONSTANTS co_tab TYPE zif_do=>td_hex_seperator VALUE '09' ##NO_TEXT.
+    CONSTANTS co_true TYPE char1 VALUE 'X' ##NO_TEXT.
+    DATA ptr_db_tb_where TYPE REF TO zcl_do_selection_options READ-ONLY .
+    DATA ptr_ro_tb_mark TYPE REF TO zcl_do_selection_options READ-ONLY .
+    DATA ptr_ro_tb_repos TYPE REF TO zcl_do_selection_options READ-ONLY .
+    DATA ptr_ro_tb_where TYPE REF TO zcl_do_selection_options READ-ONLY .
+    DATA db_rows_selected TYPE sydbcnt READ-ONLY .
+    DATA ro_tb_rows TYPE sydbcnt READ-ONLY .
 
-  events WORK_AREA_CHANGED .
+    EVENTS work_area_changed .
 
-  class-methods CLASS_CONSTRUCTOR .
-  methods CHECK_FUNCTION_CODE
-    changing
-      !CH_FUNCTION_CODE type SY-UCOMM .
-  methods CLASS_SET_MAIN_OBJECT
-    importing
-      !IM_OBJECT_ID type ZDO_OBJECT_ID optional .
-  methods CONSTRUCTOR
-    importing
-      value(IM_IT_TABLE_TYPE) type TYPENAME optional
-      value(IM_TABLE_NAME) type TABNAME optional
-      value(IM_DB_TABLE_TYPE) type TYPENAME optional
-      !IM_PTR_TO_TABLE type ref to DATA
-      !IM_PTR_TO_WA type ref to DATA optional
-      !IM_PTR_TO_TC type ref to DATA optional
-      !IM_TC_NAME type TYPENAME optional
-      !IM_PTR_TO_TC_LINES type ref to DATA optional .
-  methods DB_EXISTS
-    returning
-      value(RE_EXIST) type ABAP_BOOL .
-  methods DB_FIELDS .
-  methods DB_FIELDS_FROM_ROWDB .
-  methods DB_FIELDS_MAKE_AGGREGATE
-    importing
-      value(IM_AGGREGATE_EXPRESSION) type CHAR20 default 'SUM'
-      !IM_FIELDNAME type FIELDNAME .
-  methods DB_GET_CURRENT_VER_OF_UPD_ROWS .
-  methods DB_GET_MORE_ROWS_EXIST
-    exporting
-      !EX_MORE_ROWS_EXIST type CHAR1 .
-  methods DB_GET_ROWDB
-    returning
-      value(EX_ROWDB) type ref to DATA .
-  methods DB_LOCK .
-  methods DB_MESSAGE_HITS .
-  methods DB_READ_ONLY
-    importing
-      !IM_READ_ONLY type CHAR1 .
-  methods DB_SAVE .
-  methods DB_SELECT
-    exporting
-      !EX_MORE_ROWS_EXIST type CHAR1 .
-  methods DB_SET_MAX_HITS
-    importing
-      !IM_MAX_HITS type INT4 default '0' .
-  methods DB_SET_REPOSITION_ON_WA
-    importing
-      !IM_ACTIVE type CHAR1 .
-  methods DB_SET_ROWDB
-    importing
-      !IM_PTR_TO_TABLE type ref to DATA .
-  methods DB_SET_SYNC_ON
-    importing
-      !IM_ACTIVE type CHAR1 .
-  methods DB_TRANSACTION .
-  methods DB_UNLOCK .
-  methods DB_WHERE .
-  methods DB_WHERE_FROM_PTR_DB_WHERE .
-  methods GET_ROWOBJECT
-    exporting
-      value(EX_ROWOBJECT) type ANY TABLE .
-  methods IT_ALV .
-  methods IT_ALV_GET_VARIANT
-    exporting
-      value(EX_VARIANT) type SLIS_VARI .
-  methods IT_ALV_SET_PROGRAM
-    importing
-      !IM_PROGRAM type PROGNAME
-      !IM_SCREEN type DYNPRONR optional
-      !IM_VARIANT type SLIS_VARI optional .
-  methods IT_ALV_SET_VARIANT
-    importing
-      !IM_VARIANT type SLIS_VARI .
-  methods IT_ALV_TC_FIELDS_ONLY .
-  methods IT_ALV_USER_COMMAND
-    importing
-      !IM_UCOMM type SY-UCOMM
-      !IM_SELFIELD type SLIS_SELFIELD .
-  methods IT_APPEND
-    importing
-      !IM_LINES type SYDBCNT default 1 .
-  methods IT_COMPARE .
-  methods IT_COPY
-    importing
-      !IM_LINE type SY-TABIX default '0' .
-  methods IT_CURSOR
-    changing
-      !CH_SET_POSITION type CHAR1
-      !CH_FIELD type FIELDNAME
-      !CH_OFFSET type NUM4
-      !CH_LINE type INT4 .
-  methods IT_DELETE
-    importing
-      value(IM_LINE) type SY-TABIX default '0' .
-  methods IT_DEMARK_ALL .
-  methods IT_FILTER
-    importing
-      value(IM_PUBLISH_WORK_AREA_CHANGED) type CHAR1 default 'X' .
-  methods IT_FILTER_ASK .
-  methods IT_FIND
-    importing
-      !IM_METHOD type SY-UCOMM
-    changing
-      !CH_START_FROM_LINE type SY-TABIX .
-  methods IT_FORCE_INTEGRITY .
-  methods IT_FUNCTION_CODE
-    importing
-      value(IM_MAIN_OBJECT) type CHAR1 default SPACE
-    changing
-      !CH_FUNCTION_CODE type SY-UCOMM .
-  methods IT_GET_MARKED_ROWS .
-  methods IT_INSERT
-    importing
-      !IM_LINE type SY-TABIX
-    exporting
-      !EX_DB_CNT type SYDBCNT .
-  methods IT_MARK_ALL .
-  methods IT_MARK_BLOCK .
-  methods IT_MARK_FILTER .
-  methods IT_MARK_FILTER_ASK .
-  methods IT_MOVE_BOTTOM .
-  methods IT_MOVE_DOWN .
-  methods IT_MOVE_TOP .
-  methods IT_MOVE_UP .
-  methods IT_PRINT .
-  methods IT_REPLACE .
-  methods IT_SELECTED .
-  methods IT_SET_FILTER_AUTO_DISABLE
-    importing
-      !IM_AUTO_DISABLE type CHAR1 default SPACE .
-  methods IT_SET_REPOSITION_ON
-    importing
-      !IM_ACTIVE type CHAR1 .
-  methods IT_SORT .
-  methods IT_SORT_ASK
-    importing
-      value(IM_INCLUDE_ROW_OBJECT) type CHAR1 default SPACE .
-  methods IT_UPDATE
-    importing
-      !IM_DB_CNT type SYDBCNT .
-  methods IT_VALIDATE .
-  methods LK_ADD_LINK
-    importing
-      !IM_PTR_PUBLISHER type ref to ZCL_DO_IT
-      !IM_PTR_SUBSCRIBER type ref to ZCL_DO_IT optional
-      !IM_RELATIONSHIP type ZDO_OBJECT_RELATIONSHIP
-      !IM_IT_RELATIONSHIP type ZTT_DO_RELATIONSHIP optional .
-  methods LK_DEACTIVATE_ALL_PUBLISHERS
-    importing
-      value(IM_RELATIONSHIP) type ZDO_OBJECT_RELATIONSHIP default ZCL_DO_IT=>CO_LINK_DATA .
-  methods LK_SET_ACTIVE_PUBLISHER_ID
-    importing
-      !IM_PUBLISHER_ID type ZDO_OBJECT_ID
-      value(IM_RELATIONSHIP) type ZDO_OBJECT_RELATIONSHIP default ZCL_DO_IT=>CO_LINK_DATA .
-  methods ON_WORK_AREA_CHANGED
-    for event WORK_AREA_CHANGED of ZCL_DO_IT
-    importing
-      !SENDER .
-  methods SET_FUNCTION_CODE
-    importing
-      !IM_FUNCTION_CODE type SY-UCOMM
-      !IM_METHOD_TO_USE type RS38L_FNAM
-      !IM_UPDATE_ONLY type CHAR1 default SPACE .
-  methods SET_ROWOBJECT .
-  methods TC_APPEND
-    importing
-      !IM_LINES type SYDBCNT default 1 .
-  methods TC_CHANGE_ATTRIBUTE .
-  methods TC_CHANGE_GROUP
-    importing
-      value(IM_GROUP) type SCRFGRP1
-      !IM_SCREEN_MODE type CHAR1 .
-  methods TC_CHOOSE .
-  methods TC_COLUMN_FILTER .
-  methods TC_COLUMN_MARK_FILTER .
-  methods TC_COLUMN_SORT
-    importing
-      !IM_METHOD type SY-UCOMM .
-  methods TC_COPY .
-  methods TC_DELETE .
-  methods TC_FIND
-    importing
-      !IM_METHOD type SY-UCOMM .
-  methods TC_FREE .
-  methods TC_INITIALIZE .
-  methods TC_INSERT .
-  methods TC_REFRESH
-    importing
-      value(IM_PUBLISH_WORK_AREA_CHANGED) type CHAR1 default 'X' .
-  methods TC_REFRESH_IF_NEEDED .
-  methods TC_SCROLL
-    importing
-      !IM_METHOD type SY-UCOMM .
-  methods TC_SET_COL
-    importing
-      !IM_NAME type FIELDNAME default SPACE
-      value(IM_GROUP) type CHAR3 default SPACE
-      value(IM_INVISIBLE) type CHAR1 default SPACE .
-  methods TC_SET_COL_ATTRIBUTE
-    importing
-      !IM_NAME type FIELDNAME default SPACE
-      !IM_GROUP type CHAR3 default SPACE
-      !IM_REQUIRED type CHAR1 default SPACE
-      !IM_INPUT type CHAR1 default SPACE
-      !IM_OUTPUT type CHAR1 default SPACE
-      !IM_INTENSIFIED type CHAR1 default SPACE
-      !IM_INVISIBLE type CHAR1 default SPACE
-      !IM_LENGTH type INT4 default SPACE
-      !IM_ACTIVE type CHAR1 default SPACE
-      !IM_DISPLAY_3D type CHAR1 default SPACE
-      !IM_VALUE_HELP type CHAR1 default SPACE
-      !IM_REQUEST type CHAR1 default SPACE
-      !IM_COLOR type I default 0 .
-  methods TC_SET_DISABLE_CURRENT_ROW
-    importing
-      !IM_DISABLE type CHAR1 .
-  methods TC_SET_DISPLAYED_LINES
-    importing
-      !IM_LINES type SY-LOOPC
-      !IM_DB_CNT type ZDO_ROWDBCNT default 0 .
-  methods TC_SET_INTENSIFY_CURRENT_ROW
-    importing
-      !IM_INTENSIFY type CHAR1 .
-  methods TC_SET_KEEP_POSITION
-    importing
-      !IM_KEEP_POSITION type CHAR1 default 'X' .
-  methods TC_SET_ROW_ATTRIBUTES
-    importing
-      !IM_NAME type FIELDNAME default SPACE
-      !IM_GROUP type CHAR3 default SPACE
-      !IM_REQUIRED type CHAR1 default SPACE
-      !IM_INPUT type CHAR1 default SPACE
-      !IM_OUTPUT type CHAR1 default SPACE
-      !IM_INTENSIFIED type CHAR1 default SPACE
-      !IM_INVISIBLE type CHAR1 default SPACE
-      !IM_LENGTH type INT4 default SPACE
-      !IM_ACTIVE type CHAR1 default SPACE
-      !IM_DISPLAY_3D type CHAR1 default SPACE
-      !IM_VALUE_HELP type CHAR1 default SPACE
-      !IM_REQUEST type CHAR1 default SPACE
-      !IM_COLOR type I default 0 .
-  methods TC_USE_LABELS_FROM_SCREEN
-    importing
-      !IM_PROGRAM type PROGNAME
-      !IM_SCREEN type DYNPRONR .
-  methods WA_FROM_IT
-    importing
-      value(IM_DB_CNT) type SYDBCNT default '0' .
-  methods WA_GET_FIELD_VALUE
-    changing
-      !CH_IT_FIELD_VALUES type ZSLOT_TT_DO_FIELD_VALUES .
-  methods WA_RAISE_WORK_AREA_CHANGED .
-  methods WA_TO_IT
-    importing
-      value(IM_ROW_MOD) type ZDO_ROWMOD default SPACE .
-protected section.
+    CLASS-METHODS class_constructor .
+    METHODS check_function_code
+      CHANGING
+        !ch_function_code TYPE sy-ucomm .
+    METHODS class_set_main_object
+      IMPORTING
+        !im_object_id TYPE zdo_object_id OPTIONAL .
+    METHODS constructor
+      IMPORTING
+        VALUE(im_it_table_type) TYPE typename OPTIONAL
+        VALUE(im_table_name)    TYPE tabname OPTIONAL
+        VALUE(im_db_table_type) TYPE typename OPTIONAL
+        !im_ptr_to_table        TYPE REF TO data
+        !im_ptr_to_wa           TYPE REF TO data OPTIONAL
+        !im_ptr_to_tc           TYPE REF TO data OPTIONAL
+        !im_tc_name             TYPE typename OPTIONAL
+        !im_ptr_to_tc_lines     TYPE REF TO data OPTIONAL .
+    METHODS db_exists
+      RETURNING
+        VALUE(re_exist) TYPE abap_bool .
+    METHODS db_fields .
+    METHODS db_fields_from_rowdb .
+    METHODS db_fields_make_aggregate
+      IMPORTING
+        VALUE(im_aggregate_expression) TYPE char20 DEFAULT 'SUM'
+        !im_fieldname                  TYPE fieldname .
+    METHODS db_get_current_ver_of_upd_rows .
+    METHODS db_get_more_rows_exist
+      EXPORTING
+        !ex_more_rows_exist TYPE char1 .
+    METHODS db_get_rowdb
+      RETURNING
+        VALUE(ex_rowdb) TYPE REF TO data .
+    METHODS db_lock .
+    METHODS db_message_hits .
+    METHODS db_read_only
+      IMPORTING
+        !im_read_only TYPE char1 .
+    METHODS db_save .
+    METHODS db_select
+      EXPORTING
+        !ex_more_rows_exist TYPE char1 .
+    METHODS db_set_max_hits
+      IMPORTING
+        !im_max_hits TYPE int4 DEFAULT '0' .
+    METHODS db_set_reposition_on_wa
+      IMPORTING
+        !im_active TYPE char1 .
+    METHODS db_set_rowdb
+      IMPORTING
+        !im_ptr_to_table TYPE REF TO data .
+    METHODS db_set_sync_on
+      IMPORTING
+        !im_active TYPE char1 .
+    METHODS db_transaction .
+    METHODS db_unlock .
+    METHODS db_where .
+    METHODS db_where_from_ptr_db_where .
+    METHODS get_rowobject
+      EXPORTING
+        VALUE(ex_rowobject) TYPE ANY TABLE .
+    METHODS it_alv .
+    METHODS it_alv_get_variant
+      EXPORTING
+        VALUE(ex_variant) TYPE slis_vari .
+    METHODS it_alv_set_program
+      IMPORTING
+        !im_program TYPE progname
+        !im_screen  TYPE dynpronr OPTIONAL
+        !im_variant TYPE slis_vari OPTIONAL .
+    METHODS it_alv_set_variant
+      IMPORTING
+        !im_variant TYPE slis_vari .
+    METHODS it_alv_tc_fields_only .
+    METHODS it_alv_user_command
+      IMPORTING
+        !im_ucomm    TYPE sy-ucomm
+        !im_selfield TYPE slis_selfield .
+    METHODS it_append
+      IMPORTING
+        !im_lines TYPE sydbcnt DEFAULT 1 .
+    METHODS it_compare .
+    METHODS it_copy
+      IMPORTING
+        !im_line TYPE sy-tabix DEFAULT '0' .
+    METHODS it_cursor
+      CHANGING
+        !ch_set_position TYPE char1
+        !ch_field        TYPE fieldname
+        !ch_offset       TYPE num4
+        !ch_line         TYPE int4 .
+    METHODS it_delete
+      IMPORTING
+        VALUE(im_line) TYPE sy-tabix DEFAULT '0' .
+    METHODS it_demark_all .
+    METHODS it_filter
+      IMPORTING
+        VALUE(im_publish_work_area_changed) TYPE char1 DEFAULT 'X' .
+    METHODS it_filter_ask .
+    METHODS it_find
+      IMPORTING
+        !im_method          TYPE sy-ucomm
+      CHANGING
+        !ch_start_from_line TYPE sy-tabix .
+    METHODS it_force_integrity .
+    METHODS it_function_code
+      IMPORTING
+        VALUE(im_main_object) TYPE char1 DEFAULT space
+      CHANGING
+        !ch_function_code     TYPE sy-ucomm .
+    METHODS it_get_marked_rows .
+    METHODS it_insert
+      IMPORTING
+        !im_line   TYPE sy-tabix
+      EXPORTING
+        !ex_db_cnt TYPE sydbcnt .
+    METHODS it_mark_all .
+    METHODS it_mark_block .
+    METHODS it_mark_filter .
+    METHODS it_mark_filter_ask .
+    METHODS it_move_bottom .
+    METHODS it_move_down .
+    METHODS it_move_top .
+    METHODS it_move_up .
+    METHODS it_print .
+    METHODS it_replace .
+    METHODS it_selected .
+    METHODS it_set_filter_auto_disable
+      IMPORTING
+        !im_auto_disable TYPE char1 DEFAULT space .
+    METHODS it_set_reposition_on
+      IMPORTING
+        !im_active TYPE char1 .
+    METHODS it_sort .
+    METHODS it_sort_ask
+      IMPORTING
+        VALUE(im_include_row_object) TYPE char1 DEFAULT space .
+    METHODS it_update
+      IMPORTING
+        !im_db_cnt TYPE sydbcnt .
+    METHODS it_validate .
+    METHODS lk_add_link
+      IMPORTING
+        !im_ptr_publisher   TYPE REF TO zcl_do_it
+        !im_ptr_subscriber  TYPE REF TO zcl_do_it OPTIONAL
+        !im_relationship    TYPE zdo_object_relationship
+        !im_it_relationship TYPE ztt_do_relationship OPTIONAL .
+    METHODS lk_deactivate_all_publishers
+      IMPORTING
+        VALUE(im_relationship) TYPE zdo_object_relationship DEFAULT zcl_do_it=>co_link_data .
+    METHODS lk_set_active_publisher_id
+      IMPORTING
+        !im_publisher_id       TYPE zdo_object_id
+        VALUE(im_relationship) TYPE zdo_object_relationship DEFAULT zcl_do_it=>co_link_data .
+    METHODS on_work_area_changed
+          FOR EVENT work_area_changed OF zcl_do_it
+      IMPORTING
+          !sender .
+    METHODS set_function_code
+      IMPORTING
+        !im_function_code TYPE sy-ucomm
+        !im_method_to_use TYPE rs38l_fnam
+        !im_update_only   TYPE char1 DEFAULT space .
+    METHODS set_rowobject .
+    METHODS tc_append
+      IMPORTING
+        !im_lines TYPE sydbcnt DEFAULT 1 .
+    METHODS tc_change_attribute .
+    METHODS tc_change_group
+      IMPORTING
+        VALUE(im_group) TYPE scrfgrp1
+        !im_screen_mode TYPE char1 .
+    METHODS tc_choose .
+    METHODS tc_column_filter .
+    METHODS tc_column_mark_filter .
+    METHODS tc_column_sort
+      IMPORTING
+        !im_method TYPE sy-ucomm .
+    METHODS tc_copy .
+    METHODS tc_delete .
+    METHODS tc_find
+      IMPORTING
+        !im_method TYPE sy-ucomm .
+    METHODS tc_free .
+    METHODS tc_initialize .
+    METHODS tc_insert .
+    METHODS tc_refresh
+      IMPORTING
+        VALUE(im_publish_work_area_changed) TYPE char1 DEFAULT 'X' .
+    METHODS tc_refresh_if_needed .
+    METHODS tc_scroll
+      IMPORTING
+        !im_method TYPE sy-ucomm .
+    METHODS tc_set_col
+      IMPORTING
+        !im_name            TYPE fieldname DEFAULT space
+        VALUE(im_group)     TYPE char3 DEFAULT space
+        VALUE(im_invisible) TYPE char1 DEFAULT space .
+    METHODS tc_set_col_attribute
+      IMPORTING
+        !im_name        TYPE fieldname DEFAULT space
+        !im_group       TYPE char3 DEFAULT space
+        !im_required    TYPE char1 DEFAULT space
+        !im_input       TYPE char1 DEFAULT space
+        !im_output      TYPE char1 DEFAULT space
+        !im_intensified TYPE char1 DEFAULT space
+        !im_invisible   TYPE char1 DEFAULT space
+        !im_length      TYPE int4 DEFAULT space
+        !im_active      TYPE char1 DEFAULT space
+        !im_display_3d  TYPE char1 DEFAULT space
+        !im_value_help  TYPE char1 DEFAULT space
+        !im_request     TYPE char1 DEFAULT space
+        !im_color       TYPE i DEFAULT 0 .
+    METHODS tc_set_disable_current_row
+      IMPORTING
+        !im_disable TYPE char1 .
+    METHODS tc_set_displayed_lines
+      IMPORTING
+        !im_lines  TYPE sy-loopc
+        !im_db_cnt TYPE zdo_rowdbcnt DEFAULT 0 .
+    METHODS tc_set_intensify_current_row
+      IMPORTING
+        !im_intensify TYPE char1 .
+    METHODS tc_set_keep_position
+      IMPORTING
+        !im_keep_position TYPE char1 DEFAULT 'X' .
+    METHODS tc_set_row_attributes
+      IMPORTING
+        !im_name        TYPE fieldname DEFAULT space
+        !im_group       TYPE char3 DEFAULT space
+        !im_required    TYPE char1 DEFAULT space
+        !im_input       TYPE char1 DEFAULT space
+        !im_output      TYPE char1 DEFAULT space
+        !im_intensified TYPE char1 DEFAULT space
+        !im_invisible   TYPE char1 DEFAULT space
+        !im_length      TYPE int4 DEFAULT space
+        !im_active      TYPE char1 DEFAULT space
+        !im_display_3d  TYPE char1 DEFAULT space
+        !im_value_help  TYPE char1 DEFAULT space
+        !im_request     TYPE char1 DEFAULT space
+        !im_color       TYPE i DEFAULT 0 .
+    METHODS tc_use_labels_from_screen
+      IMPORTING
+        !im_program TYPE progname
+        !im_screen  TYPE dynpronr .
+    METHODS wa_from_it
+      IMPORTING
+        VALUE(im_db_cnt) TYPE sydbcnt DEFAULT '0' .
+    METHODS wa_get_field_value
+      CHANGING
+        !ch_it_field_values TYPE zif_do_seo=>tt_field_values .
+    METHODS wa_raise_work_area_changed .
+    METHODS wa_to_it
+      IMPORTING
+        VALUE(im_row_mod) TYPE zdo_rowmod DEFAULT space .
+  PROTECTED SECTION.
 
-  class-data MAIN_FCODE_OBJECT_ID type ZDO_OBJECT_ID .
-  class-data IT_ZROWOBJECT_STRUCTURE type SPAR_DFIES .
-  data DB_MORE_ROWS_EXIST type CHAR1 .
-  data DB_REPOSITION_ON_WA_CHANGED type CHAR1 value SPACE ##NO_TEXT.
-  data DB_SYNC_WHERE_ON_WA_CHANGED type CHAR1 value SPACE ##NO_TEXT.
-  data DB_TB_IT_TYPE type CHAR72 .
-  data DB_TB_NAME type TABNAME .
-  data DB_REFRESH_NEEDED type CHAR1 .
-  data IT_DB_TB_FIELDS type ZTT_DO_COLUMNS .
-  data IT_DB_TB_KEYS type SPAR_DFIES .
-  data IT_DB_TB_GROUP_BY type ZTT_DO_COLUMNS .
-  data IT_DB_TB_ORDER_BY type ZTT_DO_COLUMNS .
-  data IT_DB_TB_STRUCTURE type SPAR_DFIES .
-  data IT_DB_TB_WHERE type ZTT_DO_COLUMNS .
-  data IT_FCODES type ZDO_TT_DO_FUNCTION_CODES .
-  data IT_MAPS type ZDO_TT_DO_ID_FIELD_MAPPING .
-  data IT_REPOSITION_ON_WA_CHANGED type CHAR1 value SPACE ##NO_TEXT.
-  data IT_RO_TB_FIND_FIELDS type ZTT_DO_TB_FIELD_TO_SEARCH .
-  data IT_RO_TB_MARKED_ROWS type ZDO_TT_DO_MARKEDROWS .
-  data IT_RO_TB_SORT_COLUMNS_PREV type ZTT_DO_SORT_COLUMNS .
-  data IT_RO_TB_SORT_COLUMNS type ZTT_DO_SORT_COLUMNS .
-  data IT_RO_TB_STRUCTURE type SPAR_DFIES .
-  data I_ROWS_TO_SELECT_ROWDB type INT4 value '0' ##NO_TEXT.
-  data I_RO_TB_NEXT_DBCNT type INT4 .
-  data LG_DISTINCT_ROWDB type CHAR1 .
-  data LG_APPEND_ROWDB type CHAR1 .
-  data LG_COPY_CURSOR type CHAR1 .
-  data LG_COPY_MARKED type CHAR1 value 'X' ##NO_TEXT.
-  data LG_GROUP_BY_ROWDB type CHAR1 .
-  data LG_CORRESPONDING_ROWDB type CHAR1 .
-  data LG_DELETE_CURSOR type CHAR1 .
-  data LG_DELETE_MARKED type CHAR1 value 'X' ##NO_TEXT.
-  data LG_READONLY type CHAR1 .
-  data LG_AUTO_DISABLE_FILTER type CHAR1 value 'X' ##NO_TEXT.
-  data LG_DB_DO_SELECT type CHAR1 value 'X' ##NO_TEXT.
-  data PTR_IT_DB_TB_CURRENT type ref to DATA .
-  data PTR_IT_DB_TB_DELETE type ref to DATA .
-  data PTR_IT_DB_TB_UPDATE type ref to DATA .
-  data PTR_IT_ROWDB type ref to DATA .
-  data PTR_IT_ROWOBJECT type ref to DATA .
-  data PTR_IT_ROWOBJUPD type ref to DATA .
-  data PTR_TB_CONTROL type ref to DATA .
-  data PTR_WA_ROWOBJECT type ref to DATA .
-  data PTR_WA_ROWOBJUPD type ref to DATA .
-  data RO_TB_DEFAULT_CURSOR_FIELD type FIELDNAME .
-  data RO_TB_IT_TYPE type TYPENAME .
-  data RO_TB_MULTI_SORT_ALLOWED type CHAR1 value 'X' ##NO_TEXT.
-  data RO_TB_ST_TYPE type TYPENAME .
-  data RO_TB_NAME type FIELDNAME .
-  data RO_TB_SEARCH_PARMS type ZST_DO_SEARCHPARMS .
-  data TC_CURRENT_ROWDBCNT type ZDO_ROWDBCNT .
-  data TC_DISABLE_CURRENT_ROW type CHAR1 value SPACE ##NO_TEXT.
-  data TC_DISPLAYED_LINES type SY-LOOPC .
-  data TC_INTENSIFY_CURRENT_ROW type CHAR1 .
-  data TC_LG_KEEP_POSITION type CHAR1 value SPACE ##NO_TEXT.
-  data TC_LG_ADD_BLANK_ROWS type CHAR1 value 'X' ##NO_TEXT.
-  data TC_NAME type TYPENAME .
-  data WA_DB_TB_FIELDS type ZST_DO_COLUMNS .
-  data WA_DB_TB_ORDER type ZST_DO_COLUMNS .
-  data WA_DB_TB_WHERE type ZST_DO_WHERE_CLAUSE .
-  data WA_RO_TB_DEFAULT_CURSOR_FIELD type FIELDNAME .
-  data IT_RO_TB_ALV_FIELDCAT type SLIS_T_FIELDCAT_ALV .
-  data IT_RO_TB_ALV_SORT type SLIS_T_SORTINFO_ALV .
-  data IT_RO_TB_ALV_LAYOUT type SLIS_LAYOUT_ALV .
-  data IT_RO_TB_ALV_PRINT type SLIS_PRINT_ALV .
-  data RO_TB_ALV_PROGRAM type SY-REPID .
-  data RO_TB_ALV_VARIANT type DISVARIANT .
-  data RO_TB_ALV_EVENTS type SLIS_T_EVENT .
-  data RO_TB_ALV_SUBTOTAL type CHAR1 value SPACE ##NO_TEXT.
-  data RO_TB_ALV_EXPAND type CHAR1 value SPACE ##NO_TEXT.
-  data CURRENT_UCOMM type SY-UCOMM .
+    CLASS-DATA main_fcode_object_id TYPE zdo_object_id .
+    CLASS-DATA it_zrowobject_structure TYPE spar_dfies .
+    DATA db_more_rows_exist TYPE char1 .
+    DATA db_reposition_on_wa_changed TYPE char1 VALUE space ##NO_TEXT.
+    DATA db_sync_where_on_wa_changed TYPE char1 VALUE space ##NO_TEXT.
+    DATA db_tb_it_type TYPE char72 .
+    DATA db_tb_name TYPE tabname .
+    DATA db_refresh_needed TYPE char1 .
+    DATA it_db_tb_fields TYPE ztt_do_columns .
+    DATA it_db_tb_keys TYPE spar_dfies .
+    DATA it_db_tb_group_by TYPE ztt_do_columns .
+    DATA it_db_tb_order_by TYPE ztt_do_columns .
+    DATA it_db_tb_structure TYPE spar_dfies .
+    DATA it_db_tb_where TYPE ztt_do_columns .
+    DATA it_fcodes TYPE zif_do=>tt_function_codes .
+    DATA it_maps TYPE zif_do=>tt_id_field_mapping .
+    DATA it_reposition_on_wa_changed TYPE char1 VALUE space ##NO_TEXT.
+    DATA it_ro_tb_find_fields TYPE ztt_do_tb_field_to_search .
+    DATA it_ro_tb_marked_rows TYPE zif_do=>tt_markedrows .
+    DATA it_ro_tb_sort_columns_prev TYPE ztt_do_sort_columns .
+    DATA it_ro_tb_sort_columns TYPE ztt_do_sort_columns .
+    DATA it_ro_tb_structure TYPE spar_dfies .
+    DATA i_rows_to_select_rowdb TYPE int4 VALUE '0' ##NO_TEXT.
+    DATA i_ro_tb_next_dbcnt TYPE int4 .
+    DATA lg_distinct_rowdb TYPE char1 .
+    DATA lg_append_rowdb TYPE char1 .
+    DATA lg_copy_cursor TYPE char1 .
+    DATA lg_copy_marked TYPE char1 VALUE 'X' ##NO_TEXT.
+    DATA lg_group_by_rowdb TYPE char1 .
+    DATA lg_corresponding_rowdb TYPE char1 .
+    DATA lg_delete_cursor TYPE char1 .
+    DATA lg_delete_marked TYPE char1 VALUE 'X' ##NO_TEXT.
+    DATA lg_readonly TYPE char1 .
+    DATA lg_auto_disable_filter TYPE char1 VALUE 'X' ##NO_TEXT.
+    DATA lg_db_do_select TYPE char1 VALUE 'X' ##NO_TEXT.
+    DATA ptr_it_db_tb_current TYPE REF TO data .
+    DATA ptr_it_db_tb_delete TYPE REF TO data .
+    DATA ptr_it_db_tb_update TYPE REF TO data .
+    DATA ptr_it_rowdb TYPE REF TO data .
+    DATA ptr_it_rowobject TYPE REF TO data .
+    DATA ptr_it_rowobjupd TYPE REF TO data .
+    DATA ptr_tb_control TYPE REF TO data .
+    DATA ptr_wa_rowobject TYPE REF TO data .
+    DATA ptr_wa_rowobjupd TYPE REF TO data .
+    DATA ro_tb_default_cursor_field TYPE fieldname .
+    DATA ro_tb_it_type TYPE typename .
+    DATA ro_tb_multi_sort_allowed TYPE char1 VALUE 'X' ##NO_TEXT.
+    DATA ro_tb_st_type TYPE typename .
+    DATA ro_tb_name TYPE fieldname .
+    DATA ro_tb_search_parms TYPE zst_do_searchparms .
+    DATA tc_current_rowdbcnt TYPE zdo_rowdbcnt .
+    DATA tc_disable_current_row TYPE char1 VALUE space ##NO_TEXT.
+    DATA tc_displayed_lines TYPE sy-loopc .
+    DATA tc_intensify_current_row TYPE char1 .
+    DATA tc_lg_keep_position TYPE char1 VALUE space ##NO_TEXT.
+    DATA tc_lg_add_blank_rows TYPE char1 VALUE 'X' ##NO_TEXT.
+    DATA tc_name TYPE typename .
+    DATA wa_db_tb_fields TYPE zst_do_columns .
+    DATA wa_db_tb_order TYPE zst_do_columns .
+    DATA wa_db_tb_where TYPE zst_do_where_clause .
+    DATA wa_ro_tb_default_cursor_field TYPE fieldname .
+    DATA it_ro_tb_alv_fieldcat TYPE slis_t_fieldcat_alv .
+    DATA it_ro_tb_alv_sort TYPE slis_t_sortinfo_alv .
+    DATA it_ro_tb_alv_layout TYPE slis_layout_alv .
+    DATA it_ro_tb_alv_print TYPE slis_print_alv .
+    DATA ro_tb_alv_program TYPE sy-repid .
+    DATA ro_tb_alv_variant TYPE disvariant .
+    DATA ro_tb_alv_events TYPE slis_t_event .
+    DATA ro_tb_alv_subtotal TYPE char1 VALUE space ##NO_TEXT.
+    DATA ro_tb_alv_expand TYPE char1 VALUE space ##NO_TEXT.
+    DATA current_ucomm TYPE sy-ucomm .
 
-  methods DB_AFTER_SAVE .
-  methods DB_COMPARE .
-  methods DB_INITIAL_LOOP_ROWDB .
-  methods DB_ROWOBJUPD_TO_ROWDB .
-  methods DB_ROWOBJUPD_TO_ROWDB_REFRESH .
-  methods FUNCTION_CODE_INITIALIZE .
-  methods IT_ALV_OVERRIDE .
-  methods IT_DATA_FILTER_EXIT .
-  methods IT_REFRESH .
-  methods IT_REFRESH_AND_NOTIFY .
-  methods IT_ROW_CREATED
-    importing
-      !IM_PTR_TO_ROW type ref to DATA .
-  methods IT_ROW_DELETED
-    importing
-      !IM_PTR_TO_ROW type ref to DATA .
-  methods IT_ROW_EMPTY
-    importing
-      !IM_PTR_TO_ROW type ref to DATA .
-  methods IT_ROW_LOADED
-    importing
-      !IM_PTR_TO_ROW type ref to DATA .
-  methods IT_ROW_LOADED_BEGIN .
-  methods IT_ROW_LOADED_END .
-  methods IT_ROW_MAP_ASSIGN
-    importing
-      !IM_PTR_TO_ROW type ref to DATA .
-  methods IT_ROW_UPDATED
-    importing
-      !IM_PTR_TO_ROW type ref to DATA .
-  methods IT_ROW_VALIDATE
-    importing
-      !IM_PTR_TO_ROW type ref to DATA .
-  methods IT_SORT_ASSIGN_ROW_SEQ .
-  methods LOAD_IT_MAIN_TABLE_FIELDS
-    importing
-      !IM_FIELD_LIST type STRING .
-  methods RU_UPDATE
-    importing
-      !IM_PTR_TO_ROW type ref to DATA .
-  methods TC_FIRST_INPUT_FIELD .
-private section.
+    METHODS db_after_save .
+    METHODS db_compare .
+    METHODS db_initial_loop_rowdb .
+    METHODS db_rowobjupd_to_rowdb .
+    METHODS db_rowobjupd_to_rowdb_refresh .
+    METHODS function_code_initialize .
+    METHODS it_alv_override .
+    METHODS it_data_filter_exit .
+    METHODS it_refresh .
+    METHODS it_refresh_and_notify .
+    METHODS it_row_created
+      IMPORTING
+        !im_ptr_to_row TYPE REF TO data .
+    METHODS it_row_deleted
+      IMPORTING
+        !im_ptr_to_row TYPE REF TO data .
+    METHODS it_row_empty
+      IMPORTING
+        !im_ptr_to_row TYPE REF TO data .
+    METHODS it_row_loaded
+      IMPORTING
+        !im_ptr_to_row TYPE REF TO data .
+    METHODS it_row_loaded_begin .
+    METHODS it_row_loaded_end .
+    METHODS it_row_map_assign
+      IMPORTING
+        !im_ptr_to_row TYPE REF TO data .
+    METHODS it_row_updated
+      IMPORTING
+        !im_ptr_to_row TYPE REF TO data .
+    METHODS it_row_validate
+      IMPORTING
+        !im_ptr_to_row TYPE REF TO data .
+    METHODS it_sort_assign_row_seq .
+    METHODS load_it_main_table_fields
+      IMPORTING
+        !im_field_list TYPE string .
+    METHODS ru_update
+      IMPORTING
+        !im_ptr_to_row TYPE REF TO data .
+    METHODS tc_first_input_field .
+  PRIVATE SECTION.
 ENDCLASS.
 
 
 
-CLASS ZCL_DO_IT IMPLEMENTATION.
+CLASS zcl_do_it IMPLEMENTATION.
 
 
   METHOD check_function_code.
 * ...
 
     FIELD-SYMBOLS
-        <wa_fcodes> TYPE zdo_st_do_function_codes.
+        <wa_fcodes> TYPE zif_do=>ts_function_codes.
     READ TABLE it_fcodes ASSIGNING <wa_fcodes>
       WITH TABLE KEY fcode = ch_function_code.
     IF sy-subrc = 0.
@@ -518,7 +518,7 @@ CLASS ZCL_DO_IT IMPLEMENTATION.
     ELSE.
 *     refresh it_components.
 *       it_components[] = r_structdesc->get_components( ).
-      CALL FUNCTION 'ZTB_TOOLS_01_DDFIELDS'
+      CALL FUNCTION 'Z_DO_TB_TOOLS_01_DDFIELDS'
         EXPORTING
           im_structure  = ls_stru
         IMPORTING
@@ -633,7 +633,7 @@ CLASS ZCL_DO_IT IMPLEMENTATION.
     DATA(it_minus_rowobject) = it_ro_tb_structure[].
     DELETE it_minus_rowobject WHERE fieldname = 'MANDT'.
     LOOP AT it_minus_rowobject ASSIGNING FIELD-SYMBOL(<wa_minus_rowobject>)
-        WHERE FIELDNAME NE ZCL_DO_IT=>CO_ROW_MARKER.
+        WHERE fieldname NE zcl_do_it=>co_row_marker.
       READ TABLE it_zrowobject_structure WITH KEY fieldname = <wa_minus_rowobject>-fieldname TRANSPORTING NO FIELDS.
       IF sy-subrc = 0.
         DELETE it_minus_rowobject.
@@ -648,11 +648,11 @@ CLASS ZCL_DO_IT IMPLEMENTATION.
       ptr_db_tb_where
         EXPORTING im_it_valid_fields = it_db_tb_structure.
 
-     DELETE it_minus_rowobject WHERE FIELDNAME = ZCL_DO_IT=>CO_ROW_MARKER.
+    DELETE it_minus_rowobject WHERE fieldname = zcl_do_it=>co_row_marker.
 
-     CREATE OBJECT:
-      ptr_ro_tb_mark
-        EXPORTING im_it_valid_fields = it_minus_rowobject.
+    CREATE OBJECT ptr_ro_tb_mark
+      EXPORTING
+        im_it_valid_fields = it_minus_rowobject.
 
 
 
@@ -789,7 +789,7 @@ CLASS ZCL_DO_IT IMPLEMENTATION.
 *
 *    ENDIF.
 
-      CALL FUNCTION 'ZTB_TOOLS_01_SEARCH_MAPPING'
+      CALL FUNCTION 'Z_DO_TB_TOOLS_01_SEARCH_MAP'
         EXPORTING
           cxtab_control    = <tc>
         TABLES
@@ -879,7 +879,7 @@ CLASS ZCL_DO_IT IMPLEMENTATION.
           c_sort_field5 = <wa_keyfields>-fieldname.
         WHEN 6.
           c_sort_field6 = <wa_keyfields>-fieldname.
-        when 7.
+        WHEN 7.
           c_sort_field7 = <wa_keyfields>-fieldname.
       ENDCASE.
     ENDLOOP.
@@ -948,7 +948,7 @@ CLASS ZCL_DO_IT IMPLEMENTATION.
   ENDMETHOD.
 
 
-  METHOD DB_EXISTS.
+  METHOD db_exists.
     FIELD-SYMBOLS :
         <it_rowdb>     TYPE STANDARD TABLE.
 
@@ -1437,7 +1437,7 @@ CLASS ZCL_DO_IT IMPLEMENTATION.
     ENDIF.
     COMMIT WORK.
 
-    DB_ROWOBJUPD_TO_ROWDB( ).
+    db_rowobjupd_to_rowdb( ).
   ENDMETHOD.
 
 
@@ -1645,77 +1645,77 @@ CLASS ZCL_DO_IT IMPLEMENTATION.
   ENDMETHOD.
 
 
-    METHOD db_set_rowdb.
+  METHOD db_set_rowdb.
 
-      DATA:
-         ls_table      TYPE REF TO cl_abap_tabledescr.
+    DATA:
+       ls_table      TYPE REF TO cl_abap_tabledescr.
 
-      lg_db_do_select =  space.
+    lg_db_do_select =  space.
 
 
 
-      ls_table ?= cl_abap_tabledescr=>describe_by_data_ref( im_ptr_to_table ).
+    ls_table ?= cl_abap_tabledescr=>describe_by_data_ref( im_ptr_to_table ).
 
-      FIELD-SYMBOLS:
+    FIELD-SYMBOLS:
 *        <it_rowobject> TYPE STANDARD TABLE,
-        <it_rowobjupd> TYPE STANDARD TABLE,
-        <it_rowdb>     TYPE ANY TABLE,
-        <im_it_rowdb>  TYPE ANY TABLE,
-        <wa>           TYPE any.
+      <it_rowobjupd> TYPE STANDARD TABLE,
+      <it_rowdb>     TYPE ANY TABLE,
+      <im_it_rowdb>  TYPE ANY TABLE,
+      <wa>           TYPE any.
 
-      CREATE DATA ptr_it_rowdb TYPE HANDLE ls_table.
+    CREATE DATA ptr_it_rowdb TYPE HANDLE ls_table.
 
-      ASSIGN:
-        ptr_wa_rowobject->* TO <wa>,
+    ASSIGN:
+      ptr_wa_rowobject->* TO <wa>,
 *        ptr_it_rowobject->* to <it_rowobject>,
-        ptr_it_rowobjupd->* TO <it_rowobjupd>,
-        ptr_it_rowdb->*  TO  <it_rowdb>,
-        im_ptr_to_table->* TO <im_it_rowdb>.
+      ptr_it_rowobjupd->* TO <it_rowobjupd>,
+      ptr_it_rowdb->*  TO  <it_rowdb>,
+      im_ptr_to_table->* TO <im_it_rowdb>.
 
-      <it_rowdb> = <im_it_rowdb>.
+    <it_rowdb> = <im_it_rowdb>.
 
-      REFRESH:
-      <it_rowobjupd>.
+    REFRESH:
+    <it_rowobjupd>.
 
-      CLEAR :
-        <wa>,
-        tc_current_rowdbcnt.
+    CLEAR :
+      <wa>,
+      tc_current_rowdbcnt.
 
-      i_ro_tb_next_dbcnt = 1.
+    i_ro_tb_next_dbcnt = 1.
 
 * Need set number lines to fix filter issues  DB_ROWS_SELECTED
 *      DESCRIBE TABLE <it_rowdb> lines db_rows_selected.
 
 *      CALL METHOD me->db_initial_loop_rowdb.
 
-      db_refresh_needed = 'X'.
+    db_refresh_needed = 'X'.
 
 
 
 * MAPSS
-      IF line_exists( it_maps[ relationship = zcl_do_it=>co_link_data_filter ] ).
-        DATA it_fieldname TYPE ztt_do_fieldname.
-        LOOP AT it_maps ASSIGNING FIELD-SYMBOL(<wa_maps>)
-          WHERE relationship = zcl_do_it=>co_link_data_filter
-            AND active = 'X'.
-          LOOP AT <wa_maps>-map ASSIGNING FIELD-SYMBOL(<wa_map>).
-            APPEND <wa_map>-subscribed_field TO it_fieldname.
-          ENDLOOP.
+    IF line_exists( it_maps[ relationship = zcl_do_it=>co_link_data_filter ] ).
+      DATA it_fieldname TYPE ztt_do_fieldname.
+      LOOP AT it_maps ASSIGNING FIELD-SYMBOL(<wa_maps>)
+        WHERE relationship = zcl_do_it=>co_link_data_filter
+          AND active = 'X'.
+        LOOP AT <wa_maps>-map ASSIGNING FIELD-SYMBOL(<wa_map>).
+          APPEND <wa_map>-subscribed_field TO it_fieldname.
         ENDLOOP.
-        CALL METHOD me->ptr_ro_tb_where->delete_condition_exclude
-          EXPORTING
-            im_it_field_name = it_fieldname.
-      ELSE.
-        " Remove any Filters that where applied
-        CALL METHOD me->ptr_ro_tb_where->delete_condition.
-      ENDIF.
-      CALL METHOD me->tc_refresh_if_needed.
+      ENDLOOP.
+      CALL METHOD me->ptr_ro_tb_where->delete_condition_exclude
+        EXPORTING
+          im_it_field_name = it_fieldname.
+    ELSE.
+      " Remove any Filters that where applied
+      CALL METHOD me->ptr_ro_tb_where->delete_condition.
+    ENDIF.
+    CALL METHOD me->tc_refresh_if_needed.
 
 *      call method:
 *            me->it_filter,
 *      me->tc_initialize.
 
-    ENDMETHOD.
+  ENDMETHOD.
 
 
   METHOD db_set_sync_on .
@@ -2102,7 +2102,7 @@ CLASS ZCL_DO_IT IMPLEMENTATION.
       alv_save = 'A'.
     ENDIF.
 
-    CALL FUNCTION 'ZTB_TOOLS_01_ALV'
+    CALL FUNCTION 'Z_DO_TB_TOOLS_01_ALV'
       EXPORTING
         im_events         = ro_tb_alv_events[]
         im_sort           = it_ro_tb_alv_sort[]
@@ -2398,9 +2398,9 @@ CLASS ZCL_DO_IT IMPLEMENTATION.
   ENDMETHOD.
 
 
-  method IT_DATA_FILTER_EXIT.
+  METHOD it_data_filter_exit.
 * uSE THIS METHOD TO OVERRIDE FILTER PASSED BY LINK.
-  endmethod.
+  ENDMETHOD.
 
 
   METHOD it_delete.
@@ -2606,7 +2606,7 @@ CLASS ZCL_DO_IT IMPLEMENTATION.
       <high>           TYPE any,
       <fieldvalue>     TYPE any,
       <rowdbfield>     TYPE any,
-      <wa_fieldsvalue> TYPE zslot_st_do_field_values,
+      <wa_fieldsvalue> TYPE zif_do_seo=>ts_field_values,
       <rowmod>         TYPE any,
       <rowdbcnt>       TYPE any,
       <filter>         TYPE any,
@@ -2617,7 +2617,7 @@ CLASS ZCL_DO_IT IMPLEMENTATION.
     DATA :
       prev_idx        TYPE sytabix,
       next_idx        TYPE sytabix,
-      it_field_values TYPE zslot_tt_do_field_values.
+      it_field_values TYPE zif_do_seo=>tt_field_values.
 
     ASSIGN :
       ptr_wa_rowobject->* TO <wa_rowobject>,
@@ -2830,13 +2830,13 @@ CLASS ZCL_DO_IT IMPLEMENTATION.
     ro_tb_search_parms-markfield = zcl_do_it=>co_row_marker.
 *  ro_tb_search_parms-zcursor   = do_cursor.
 
-    CALL FUNCTION 'ZTB_TOOLS_01_FIND_ASK'
+    CALL FUNCTION 'Z_DO_TB_TOOLS_01_FIND_ASK'
       EXPORTING
         method      = im_method
       CHANGING
         searchparms = ro_tb_search_parms.
 
-    CALL FUNCTION 'ZTB_TOOLS_01_FIND'
+    CALL FUNCTION 'Z_DO_TB_TOOLS_01_FIND'
       TABLES
         findin      = <table>
         fields      = it_ro_tb_find_fields
@@ -2908,7 +2908,7 @@ CLASS ZCL_DO_IT IMPLEMENTATION.
       cfield(30)       TYPE c,
       l_ok             TYPE sy-ucomm,
       l_offset         TYPE i,
-      wa_fcodes        TYPE zdo_st_do_function_codes.
+      wa_fcodes        TYPE zif_do=>ts_function_codes.
 
     current_ucomm  = ch_function_code.
     SEARCH ch_function_code FOR tc_name.
@@ -3002,7 +3002,7 @@ CLASS ZCL_DO_IT IMPLEMENTATION.
       <wa_rowobject> TYPE any.
 
     DATA :
-      wa_marked_rows TYPE zdo_st_do_marked_rows.
+      wa_marked_rows TYPE zif_do=>ts_marked_rows.
 
     REFRESH it_ro_tb_marked_rows.
     LOOP AT <it_rowobject> ASSIGNING <wa_rowobject>.
@@ -3145,12 +3145,12 @@ CLASS ZCL_DO_IT IMPLEMENTATION.
 * ...
 
     DATA :
-      it_field_values TYPE zslot_tt_do_field_values.
+      it_field_values TYPE zif_do_seo=>tt_field_values.
 
     FIELD-SYMBOLS:
       <it_rowobject>   TYPE STANDARD TABLE,
       <fieldvalue>     TYPE any,
-      <wa_fieldsvalue> TYPE zslot_st_do_field_values,
+      <wa_fieldsvalue> TYPE zif_do_seo=>ts_field_values,
       <rowmark>        TYPE any,
       <wa_rowobject>   TYPE any.
 
@@ -3534,9 +3534,9 @@ CLASS ZCL_DO_IT IMPLEMENTATION.
       <row>            TYPE any,
       <field>          TYPE any,
       <field_from>     TYPE any,
-      <wa_field_value> TYPE LINE OF zslot_tt_do_field_values,
-      <wa_map>         TYPE LINE OF zdo_tt_do_field_mapping,
-      <wa_maps>        TYPE LINE OF zdo_tt_do_id_field_mapping.
+      <wa_field_value> TYPE LINE OF zif_do_seo=>tt_field_values,
+      <wa_map>         TYPE LINE OF zif_do=>tt_field_mapping,
+      <wa_maps>        TYPE LINE OF zif_do=>tt_id_field_mapping.
 
     ASSIGN :
       im_ptr_to_row->* TO <row>.
@@ -3681,7 +3681,7 @@ CLASS ZCL_DO_IT IMPLEMENTATION.
       ENDLOOP.
     ENDIF.
 
-    CALL FUNCTION 'ZTB_TOOLS_01_SORT'
+    CALL FUNCTION 'Z_DO_TB_TOOLS_01_SORT'
       TABLES
         it_sort_columns = it_ro_tb_sort_columns
         it_field_list   = it_field_list
@@ -3760,17 +3760,17 @@ CLASS ZCL_DO_IT IMPLEMENTATION.
 
     DATA :
       ptr_subscriber TYPE REF TO zcl_do_it,
-      wa_map         TYPE LINE OF zdo_tt_do_field_mapping,
-      wa_maps        TYPE LINE OF zdo_tt_do_id_field_mapping.
+      wa_map         TYPE LINE OF zif_do=>tt_field_mapping,
+      wa_maps        TYPE LINE OF zif_do=>tt_id_field_mapping.
 
     FIELD-SYMBOLS :
       <wa_relationship> LIKE LINE OF im_it_relationship,
-      <wa_maps>         TYPE LINE OF zdo_tt_do_id_field_mapping,
-      <wa_mapping>      TYPE LINE OF zdo_tt_do_field_mapping.
+      <wa_maps>         TYPE LINE OF zif_do=>tt_id_field_mapping,
+      <wa_mapping>      TYPE LINE OF zif_do=>tt_field_mapping.
 
 *    BEGIN OF zdo_st_do_id_field_mapping,
 *    id TYPE zdo_object_id,
-*    map TYPE  zdo_tt_do_field_mapping,
+*    map TYPE  ZIF_DO=>ZDO_TT_do_field_mapping,
 
     IF im_ptr_subscriber IS INITIAL.
       ptr_subscriber = me.
@@ -3834,7 +3834,7 @@ CLASS ZCL_DO_IT IMPLEMENTATION.
 * ...
 
     FIELD-SYMBOLS :
-      <wa_maps>          TYPE LINE OF zdo_tt_do_id_field_mapping.
+      <wa_maps>          TYPE LINE OF zif_do=>tt_id_field_mapping.
 
     LOOP AT it_maps ASSIGNING <wa_maps>
       WHERE relationship = im_relationship
@@ -3849,7 +3849,7 @@ CLASS ZCL_DO_IT IMPLEMENTATION.
 *  it_active_publisher_id  = im_publisher_id.
 
     FIELD-SYMBOLS :
-      <wa_maps>          TYPE LINE OF zdo_tt_do_id_field_mapping.
+      <wa_maps>          TYPE LINE OF zif_do=>tt_id_field_mapping.
 
     READ TABLE it_maps ASSIGNING <wa_maps>
       WITH KEY relationship = im_relationship
@@ -3899,8 +3899,8 @@ CLASS ZCL_DO_IT IMPLEMENTATION.
       i_times         TYPE i,
       c_relationship  TYPE zdo_object_relationship,
       c_forgein_key   TYPE char1,
-      wa_field_value  TYPE LINE OF zslot_tt_do_field_values,
-      it_field_value  TYPE zslot_tt_do_field_values.
+      wa_field_value  TYPE LINE OF zif_do_seo=>tt_field_values,
+      it_field_value  TYPE zif_do_seo=>tt_field_values.
 
     FIELD-SYMBOLS :
       <tc>             TYPE cxtab_control,
@@ -3908,9 +3908,9 @@ CLASS ZCL_DO_IT IMPLEMENTATION.
       <fieldvalue>     TYPE any,
       <it_rowobject>   TYPE STANDARD TABLE,
       <wa_rowobject>   TYPE any,
-      <wa_field_value> TYPE LINE OF zslot_tt_do_field_values,
-      <wa_map>         TYPE LINE OF zdo_tt_do_field_mapping,
-      <wa_maps>        TYPE LINE OF zdo_tt_do_id_field_mapping,
+      <wa_field_value> TYPE LINE OF zif_do_seo=>tt_field_values,
+      <wa_map>         TYPE LINE OF zif_do=>tt_field_mapping,
+      <wa_maps>        TYPE LINE OF zif_do=>tt_id_field_mapping,
       <low>            TYPE any.
 
     DO 3 TIMES.
@@ -4345,7 +4345,7 @@ CLASS ZCL_DO_IT IMPLEMENTATION.
 * ...
 
     DATA :
-      wa_fcodes TYPE zdo_st_do_function_codes.
+      wa_fcodes TYPE zif_do=>ts_function_codes.
 
     CLEAR  wa_fcodes-fcode.
     READ TABLE it_fcodes INTO wa_fcodes
@@ -5602,7 +5602,7 @@ CLASS ZCL_DO_IT IMPLEMENTATION.
       <field>          TYPE any,
       <wa>             TYPE any,
       <wa_dfies>       TYPE LINE OF spar_dfies,
-      <wa_field_value> TYPE LINE OF zslot_tt_do_field_values.
+      <wa_field_value> TYPE LINE OF zif_do_seo=>tt_field_values.
 
     ASSIGN :
       ptr_wa_rowobject->*   TO   <wa>.

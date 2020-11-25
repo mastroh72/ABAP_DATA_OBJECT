@@ -1,13 +1,13 @@
-FUNCTION ztb_tools_01_ddfields.
-*"----------------------------------------------------------------------
+FUNCTION Z_DO_TB_TOOLS_01_DDFIELDS.
+*"--------------------------------------------------------------------
 *"*"Local Interface:
 *"  IMPORTING
-*"     REFERENCE(IM_STRUCTURE) TYPE REF TO  CL_ABAP_STRUCTDESCR
+*"     REFERENCE(IM_STRUCTURE) TYPE REF TO CL_ABAP_STRUCTDESCR
 *"  EXPORTING
 *"     REFERENCE(IT_DDICFIELDS) TYPE  DDFIELDS
 *"  EXCEPTIONS
 *"      ERROR
-*"----------------------------------------------------------------------
+*"--------------------------------------------------------------------
 
   DATA(it_components) = im_structure->get_components( ).
   DATA(wa_struct_name) = im_structure->get_relative_name( ).

@@ -1,5 +1,5 @@
-FUNCTION ZTB_TOOLS_01_ALV.
-*"----------------------------------------------------------------------
+FUNCTION Z_DO_TB_TOOLS_01_ALV.
+*"--------------------------------------------------------------------
 *"*"Local Interface:
 *"  IMPORTING
 *"     REFERENCE(IM_EVENTS) TYPE  SLIS_T_EVENT
@@ -7,11 +7,11 @@ FUNCTION ZTB_TOOLS_01_ALV.
 *"     REFERENCE(IM_VARIANT) TYPE  DISVARIANT
 *"     REFERENCE(IM_STRUCTURE_NAME) LIKE  DD02L-TABNAME
 *"     REFERENCE(IM_FIELDCAT) TYPE  SLIS_T_FIELDCAT_ALV
-*"     REFERENCE(IM_DATA_OBJECT) TYPE REF TO  ZCL_DO_IT
+*"     REFERENCE(IM_DATA_OBJECT) TYPE REF TO ZCL_DO_IT
 *"     REFERENCE(IM_SORT) TYPE  SLIS_T_SORTINFO_ALV
 *"  TABLES
 *"      IT_OUTTAB TYPE  STANDARD TABLE
-*"----------------------------------------------------------------------
+*"--------------------------------------------------------------------
   gobj_data_object = im_data_object.
 
 **   I_INTERFACE_CHECK                 = ' '

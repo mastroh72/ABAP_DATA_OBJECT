@@ -3,18 +3,15 @@
  <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
   <asx:values>
    <PROGDIR>
-    <NAME>LZTB_TOOLS_01O01</NAME>
+    <NAME>LZDO_TB_TOOLS_01TOP</NAME>
+    <DBAPL>S</DBAPL>
+    <DBNA>D$</DBNA>
     <SUBC>I</SUBC>
-    <RLOAD>E</RLOAD>
+    <APPL>S</APPL>
+    <FIXPT>X</FIXPT>
+    <LDBNAME>D$S</LDBNAME>
     <UCCHECK>X</UCCHECK>
    </PROGDIR>
-   <TPOOL>
-    <item>
-     <ID>R</ID>
-     <ENTRY>Process Before Output</ENTRY>
-     <LENGTH>21</LENGTH>
-    </item>
-   </TPOOL>
   </asx:values>
  </asx:abap>
 </abapGit>

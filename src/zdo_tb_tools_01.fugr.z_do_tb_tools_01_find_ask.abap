@@ -1,12 +1,12 @@
-FUNCTION ZTB_TOOLS_01_FIND_ASK.
-*"----------------------------------------------------------------------
+FUNCTION Z_DO_TB_TOOLS_01_FIND_ASK.
+*"--------------------------------------------------------------------
 *"*"Local Interface:
 *"  IMPORTING
 *"     REFERENCE(METHOD) TYPE  SYUCOMM DEFAULT 'REPL'
 *"     REFERENCE(MODE) TYPE  CHAR1 DEFAULT 'U'
 *"  CHANGING
 *"     REFERENCE(SEARCHPARMS) TYPE  ZST_DO_SEARCHPARMS
-*"----------------------------------------------------------------------
+*"--------------------------------------------------------------------
   ASSIGN :
     mode TO <g_mode>,
     searchparms TO <g_searchparms>.

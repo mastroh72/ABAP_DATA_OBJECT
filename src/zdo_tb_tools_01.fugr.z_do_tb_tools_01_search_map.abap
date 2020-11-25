@@ -1,5 +1,5 @@
-FUNCTION ZTB_TOOLS_01_SEARCH_MAPPING.
-*"----------------------------------------------------------------------
+FUNCTION Z_DO_TB_TOOLS_01_SEARCH_MAP.
+*"--------------------------------------------------------------------
 *"*"Local Interface:
 *"  IMPORTING
 *"     REFERENCE(CXTAB_CONTROL) TYPE  CXTAB_CONTROL OPTIONAL
@@ -8,7 +8,7 @@ FUNCTION ZTB_TOOLS_01_SEARCH_MAPPING.
 *"  TABLES
 *"      CXTAB_COLUMN TYPE  TABLE OPTIONAL
 *"      FIELDS_TO_SEARCH TYPE  ZTT_DO_TB_FIELD_TO_SEARCH
-*"----------------------------------------------------------------------
+*"--------------------------------------------------------------------
 
   FIELD-SYMBOLS:
     <cols>  TYPE ANY TABLE,

@@ -1,5 +1,5 @@
-FUNCTION ztb_tools_01_sort.
-*"----------------------------------------------------------------------
+FUNCTION Z_DO_TB_TOOLS_01_SORT.
+*"--------------------------------------------------------------------
 *"*"Local Interface:
 *"  TABLES
 *"      IT_SORT_COLUMNS TYPE  ZTT_DO_SORT_COLUMNS
@@ -7,7 +7,7 @@ FUNCTION ztb_tools_01_sort.
 *"  EXCEPTIONS
 *"      CANCEL
 *"      NO_CHANGES
-*"----------------------------------------------------------------------
+*"--------------------------------------------------------------------
   DATA:
     no_change TYPE c.
 

@@ -1,4 +1,4 @@
-FUNCTION ZTB_TOOLS_01_RANGE_MAP_SO.
+FUNCTION Z_DO_TB_TOOLS_01_RANGE_MAP_SO.
 *"----------------------------------------------------------------------
 *"*"Local Interface:
 *"  IMPORTING
@@ -7,7 +7,7 @@ FUNCTION ZTB_TOOLS_01_RANGE_MAP_SO.
 *"     REFERENCE(RESET_SELECTION) TYPE  CHAR1 DEFAULT 'X'
 *"  TABLES
 *"      IT_RANGE TYPE  STANDARD TABLE
-*"      IT_SELECTION_OPTIONS TYPE  ZSLOT_TT_DO_SELECTION_OPTIONS
+*"      IT_SELECTION_OPTIONS TYPE  ZDO01_TT_SELECTION_OPTIONS
 *"  EXCEPTIONS
 *"      NO_RANGE_TAB
 *"----------------------------------------------------------------------
