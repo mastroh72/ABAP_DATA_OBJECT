@@ -15,8 +15,8 @@ CLASS zcl_do DEFINITION
   PROTECTED SECTION.
 
     TYPE-POOLS zclob .
-    DATA it_published TYPE zclob_tt_do_obj_relationship .
-    DATA it_subscribed TYPE zclob_tt_do_obj_relationship .
+    DATA it_published TYPE zif_do_clob=>tt_obj_relationship .
+    DATA it_subscribed TYPE zif_do_clob=>tt_obj_relationship .
 
     METHODS add_published
       IMPORTING
@@ -40,12 +40,12 @@ CLASS zcl_do DEFINITION
       IMPORTING
         !im_relationship  TYPE  zdo_object_relationship
       EXPORTING
-        VALUE(ex_it_link) TYPE zclob_tt_do_objects .
+        VALUE(ex_it_link) TYPE zif_do_clob=>tt_objects .
     METHODS get_subscribed
       IMPORTING
         !im_relationship  TYPE  zdo_object_relationship
       EXPORTING
-        VALUE(ex_it_link) TYPE zclob_tt_do_objects .
+        VALUE(ex_it_link) TYPE zif_do_clob=>tt_objects .
 
   PRIVATE SECTION.
 
@@ -62,7 +62,7 @@ CLASS ZCL_DO IMPLEMENTATION.
 * ...
 
     DATA :
-      wa     TYPE zclob_st_DO_obj_relationship.
+      wa     TYPE zif_do_clob=>ts_obj_relationship.
 
     READ TABLE it_published
       WITH KEY id = im_id  relationship = im_relationship
@@ -81,7 +81,7 @@ CLASS ZCL_DO IMPLEMENTATION.
 * ...
 
     DATA :
-      wa     TYPE zclob_st_DO_obj_relationship.
+      wa     TYPE zif_do_clob=>ts_obj_relationship.
 
     READ TABLE it_subscribed
       WITH KEY id = im_id  relationship = im_relationship
@@ -132,10 +132,10 @@ CLASS ZCL_DO IMPLEMENTATION.
 * ...
 
     DATA :
-      wa_object TYPE LINE OF zclob_tt_do_objects.
+      wa_object TYPE LINE OF zif_do_clob=>tt_objects.
 
     FIELD-SYMBOLS
-      <wa_published>   TYPE LINE OF zclob_tt_do_obj_relationship.
+      <wa_published>   TYPE LINE OF zif_do_clob=>tt_obj_relationship.
 
     LOOP AT it_published ASSIGNING <wa_published>
       WHERE  relationship = im_relationship.
@@ -150,10 +150,10 @@ CLASS ZCL_DO IMPLEMENTATION.
 * ...
 
     DATA :
-      wa_object TYPE LINE OF zclob_tt_do_objects.
+      wa_object TYPE LINE OF zif_do_clob=>tt_objects.
 
     FIELD-SYMBOLS
-      <wa_subscribed>   TYPE LINE OF zclob_tt_do_obj_relationship.
+      <wa_subscribed>   TYPE LINE OF zif_do_clob=>tt_obj_relationship.
 
     LOOP AT it_subscribed ASSIGNING <wa_subscribed>
       WHERE  relationship = im_relationship.

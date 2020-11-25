@@ -6,8 +6,8 @@
 
 FORM create_data_objects.
   DATA :
-    wa_lookup       TYPE zse_st_do_look_up,
-    it_lookup       TYPE zse_tt_do_look_up,
+    wa_lookup       TYPE ZIF_DO_SE=>ts_look_up,
+    it_lookup       TYPE ZIF_DO_SE=>tt_look_up,
     it_relationship TYPE ZTT_DO_RELATIONSHIP,
     wa_relationship TYPE LINE OF ZTT_DO_RELATIONSHIP,
     ptr_to_it       TYPE REF TO data,

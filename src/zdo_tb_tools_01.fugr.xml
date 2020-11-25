@@ -4,15 +4,15 @@
   <asx:values>
    <AREAT>Table Tools</AREAT>
    <INCLUDES>
-    <SOBJ_NAME>LZTB_TOOLS_01F01</SOBJ_NAME>
-    <SOBJ_NAME>LZTB_TOOLS_01I01</SOBJ_NAME>
-    <SOBJ_NAME>LZTB_TOOLS_01O01</SOBJ_NAME>
-    <SOBJ_NAME>LZTB_TOOLS_01TOP</SOBJ_NAME>
-    <SOBJ_NAME>SAPLZTB_TOOLS_01</SOBJ_NAME>
+    <SOBJ_NAME>LZDO_TB_TOOLS_01F01</SOBJ_NAME>
+    <SOBJ_NAME>LZDO_TB_TOOLS_01I01</SOBJ_NAME>
+    <SOBJ_NAME>LZDO_TB_TOOLS_01O01</SOBJ_NAME>
+    <SOBJ_NAME>LZDO_TB_TOOLS_01TOP</SOBJ_NAME>
+    <SOBJ_NAME>SAPLZDO_TB_TOOLS_01</SOBJ_NAME>
    </INCLUDES>
    <FUNCTIONS>
     <item>
-     <FUNCNAME>ZTB_TOOLS_01_ALV</FUNCNAME>
+     <FUNCNAME>Z_DO_TB_TOOLS_01_ALV</FUNCNAME>
      <SHORT_TEXT>Table to ALV</SHORT_TEXT>
      <IMPORT>
       <RSIMP>
@@ -95,7 +95,7 @@
      </DOCUMENTATION>
     </item>
     <item>
-     <FUNCNAME>ZTB_TOOLS_01_DDFIELDS</FUNCNAME>
+     <FUNCNAME>Z_DO_TB_TOOLS_01_DDFIELDS</FUNCNAME>
      <SHORT_TEXT>Build DDFields from Complex Structure</SHORT_TEXT>
      <IMPORT>
       <RSIMP>
@@ -135,7 +135,7 @@
      </DOCUMENTATION>
     </item>
     <item>
-     <FUNCNAME>ZTB_TOOLS_01_FILTER</FUNCNAME>
+     <FUNCNAME>Z_DO_TB_TOOLS_01_FILTER</FUNCNAME>
      <SHORT_TEXT>Filter</SHORT_TEXT>
      <IMPORT>
       <RSIMP>
@@ -161,7 +161,7 @@
      <TABLES>
       <RSTBL>
        <PARAMETER>IT_SELECTION</PARAMETER>
-       <TYP>ZSLOT_TT_DO_SELECTION_OPTIONS</TYP>
+       <TYP>ZDO01_TT_SELECTION_OPTIONS</TYP>
       </RSTBL>
       <RSTBL>
        <PARAMETER>IT_FIELD_LIST</PARAMETER>
@@ -208,7 +208,7 @@
      </DOCUMENTATION>
     </item>
     <item>
-     <FUNCNAME>ZTB_TOOLS_01_FIND</FUNCNAME>
+     <FUNCNAME>Z_DO_TB_TOOLS_01_FIND</FUNCNAME>
      <SHORT_TEXT>Find Function Module</SHORT_TEXT>
      <CHANGING>
       <RSCHA>
@@ -243,7 +243,7 @@
      </DOCUMENTATION>
     </item>
     <item>
-     <FUNCNAME>ZTB_TOOLS_01_FIND_ASK</FUNCNAME>
+     <FUNCNAME>Z_DO_TB_TOOLS_01_FIND_ASK</FUNCNAME>
      <SHORT_TEXT>Find Ask</SHORT_TEXT>
      <IMPORT>
       <RSIMP>
@@ -284,7 +284,11 @@
      </DOCUMENTATION>
     </item>
     <item>
-     <FUNCNAME>ZTB_TOOLS_01_RANGE_MAP_SO</FUNCNAME>
+     <FUNCNAME>Z_DO_TB_TOOLS_01_FIND_TEST</FUNCNAME>
+     <SHORT_TEXT>Find Test</SHORT_TEXT>
+    </item>
+    <item>
+     <FUNCNAME>Z_DO_TB_TOOLS_01_RANGE_MAP_SO</FUNCNAME>
      <SHORT_TEXT>Convert Range or Selection Options to Data Object Selection Options</SHORT_TEXT>
      <IMPORT>
       <RSIMP>
@@ -312,7 +316,7 @@
       </RSTBL>
       <RSTBL>
        <PARAMETER>IT_SELECTION_OPTIONS</PARAMETER>
-       <TYP>ZSLOT_TT_DO_SELECTION_OPTIONS</TYP>
+       <TYP>ZDO01_TT_SELECTION_OPTIONS</TYP>
       </RSTBL>
      </TABLES>
      <EXCEPTION>
@@ -348,7 +352,7 @@
      </DOCUMENTATION>
     </item>
     <item>
-     <FUNCNAME>ZTB_TOOLS_01_RANGE_WA</FUNCNAME>
+     <FUNCNAME>Z_DO_TB_TOOLS_01_RANGE_WA</FUNCNAME>
      <SHORT_TEXT>Add to Range</SHORT_TEXT>
      <IMPORT>
       <RSIMP>
@@ -373,7 +377,7 @@
      </DOCUMENTATION>
     </item>
     <item>
-     <FUNCNAME>ZTB_TOOLS_01_SEARCH_MAPPING</FUNCNAME>
+     <FUNCNAME>Z_DO_TB_TOOLS_01_SEARCH_MAP</FUNCNAME>
      <SHORT_TEXT>Search Mapping</SHORT_TEXT>
      <IMPORT>
       <RSIMP>
@@ -430,12 +434,12 @@
      </DOCUMENTATION>
     </item>
     <item>
-     <FUNCNAME>ZTB_TOOLS_01_SELECTION</FUNCNAME>
+     <FUNCNAME>Z_DO_TB_TOOLS_01_SELECTION</FUNCNAME>
      <SHORT_TEXT>Selections</SHORT_TEXT>
      <TABLES>
       <RSTBL>
        <PARAMETER>IT_SELECTION</PARAMETER>
-       <TYP>ZSLOT_TT_DO_SELECTION_OPTIONS</TYP>
+       <TYP>ZDO01_TT_SELECTION_OPTIONS</TYP>
       </RSTBL>
       <RSTBL>
        <PARAMETER>IT_FIELD_LIST</PARAMETER>
@@ -454,7 +458,7 @@
      </DOCUMENTATION>
     </item>
     <item>
-     <FUNCNAME>ZTB_TOOLS_01_SORT</FUNCNAME>
+     <FUNCNAME>Z_DO_TB_TOOLS_01_SORT</FUNCNAME>
      <SHORT_TEXT>Sort Ask</SHORT_TEXT>
      <TABLES>
       <RSTBL>
@@ -494,10 +498,80 @@
      </DOCUMENTATION>
     </item>
    </FUNCTIONS>
+   <I18N_TPOOL>
+    <item>
+     <LANGUAGE>1</LANGUAGE>
+     <TEXTPOOL>
+      <item>
+       <ID>I</ID>
+       <KEY>001</KEY>
+       <ENTRY>Determine values for filter criteria</ENTRY>
+       <LENGTH>36</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>002</KEY>
+       <ENTRY>Select</ENTRY>
+       <LENGTH>6</LENGTH>
+      </item>
+     </TEXTPOOL>
+    </item>
+    <item>
+     <LANGUAGE>F</LANGUAGE>
+     <TEXTPOOL>
+      <item>
+       <ID>I</ID>
+       <KEY>001</KEY>
+       <ENTRY>Determine values for filter criteria</ENTRY>
+       <LENGTH>36</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>002</KEY>
+       <ENTRY>Select</ENTRY>
+       <LENGTH>6</LENGTH>
+      </item>
+     </TEXTPOOL>
+    </item>
+    <item>
+     <LANGUAGE>P</LANGUAGE>
+     <TEXTPOOL>
+      <item>
+       <ID>I</ID>
+       <KEY>001</KEY>
+       <ENTRY>Determine values for filter criteria</ENTRY>
+       <LENGTH>36</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>002</KEY>
+       <ENTRY>Select</ENTRY>
+       <LENGTH>6</LENGTH>
+      </item>
+     </TEXTPOOL>
+    </item>
+    <item>
+     <LANGUAGE>S</LANGUAGE>
+     <TEXTPOOL>
+      <item>
+       <ID>I</ID>
+       <KEY>001</KEY>
+       <ENTRY>Determine values for filter criteria</ENTRY>
+       <LENGTH>36</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>002</KEY>
+       <ENTRY>Select</ENTRY>
+       <LENGTH>6</LENGTH>
+      </item>
+     </TEXTPOOL>
+    </item>
+   </I18N_TPOOL>
    <DYNPROS>
     <item>
      <HEADER>
-      <PROGRAM>SAPLZTB_TOOLS_01</PROGRAM>
+      <PROGRAM>SAPLZDO_TB_TOOLS_01</PROGRAM>
       <SCREEN>0220</SCREEN>
       <LANGUAGE>E</LANGUAGE>
       <DESCRIPT>Field Filter</DESCRIPT>
@@ -806,7 +880,7 @@
     </item>
     <item>
      <HEADER>
-      <PROGRAM>SAPLZTB_TOOLS_01</PROGRAM>
+      <PROGRAM>SAPLZDO_TB_TOOLS_01</PROGRAM>
       <SCREEN>0240</SCREEN>
       <LANGUAGE>E</LANGUAGE>
       <DESCRIPT>T100 Maintenance: Find / Replace Dialog Box</DESCRIPT>
@@ -1024,7 +1098,7 @@
     </item>
     <item>
      <HEADER>
-      <PROGRAM>SAPLZTB_TOOLS_01</PROGRAM>
+      <PROGRAM>SAPLZDO_TB_TOOLS_01</PROGRAM>
       <SCREEN>0260</SCREEN>
       <LANGUAGE>E</LANGUAGE>
       <DESCRIPT>T100 Maintenance: Find / Replace Dialog Box</DESCRIPT>
@@ -1181,7 +1255,7 @@
     </item>
     <item>
      <HEADER>
-      <PROGRAM>SAPLZTB_TOOLS_01</PROGRAM>
+      <PROGRAM>SAPLZDO_TB_TOOLS_01</PROGRAM>
       <SCREEN>0280</SCREEN>
       <LANGUAGE>E</LANGUAGE>
       <DESCRIPT>Define Sort Order</DESCRIPT>
@@ -1226,7 +1300,7 @@
        <ELEMENT_OF>GTC_SORT_COLS</ELEMENT_OF>
        <LINE>001</LINE>
        <COLUMN>001</COLUMN>
-       <LENGTH>004</LENGTH>
+       <LENGTH>002</LENGTH>
        <HEIGHT>001</HEIGHT>
       </RPY_DYCATT>
       <RPY_DYCATT>
@@ -1700,7 +1774,7 @@
        <LINE>001</LINE>
        <COLUMN>002</COLUMN>
        <LENGTH>001</LENGTH>
-       <VISLENGTH>003</VISLENGTH>
+       <VISLENGTH>001</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <FORMAT>CHAR</FORMAT>
        <INPUT_FLD>X</INPUT_FLD>
@@ -1714,7 +1788,7 @@
        <LINE>001</LINE>
        <COLUMN>003</COLUMN>
        <LENGTH>001</LENGTH>
-       <VISLENGTH>003</VISLENGTH>
+       <VISLENGTH>001</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <FORMAT>CHAR</FORMAT>
        <INPUT_FLD>X</INPUT_FLD>

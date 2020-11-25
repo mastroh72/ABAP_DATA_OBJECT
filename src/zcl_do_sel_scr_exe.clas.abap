@@ -8,7 +8,7 @@ CLASS zcl_do_sel_scr_exe DEFINITION
     TYPE-POOLS zse .
     METHODS add_look_up
       IMPORTING
-        !im_it_lu TYPE zse_tt_do_look_up .
+        !im_it_lu TYPE zif_do_se=>tt_look_up .
     METHODS apply_selection
       IMPORTING
         !im_ucomm     TYPE syucomm
@@ -26,14 +26,14 @@ CLASS zcl_do_sel_scr_exe DEFINITION
 
   PROTECTED SECTION.
 
-    DATA wa_ucomm TYPE zse_st_do_look_up .
-    DATA it_ucomm_once TYPE zse_tt_do_look_up .
+    DATA wa_ucomm TYPE  zif_do_se=>TS_look_up .
+    DATA it_ucomm_once TYPE zif_do_se=>tt_look_up .
     DATA obj_data TYPE REF TO zcl_do_it .
     DATA obj_db_where TYPE REF TO zcl_do_selection_options .
     DATA obj_ro_where TYPE REF TO zcl_do_selection_options .
-    DATA it_filter TYPE zslot_tt_do_selection_options .
-    DATA it_selection TYPE zslot_tt_do_selection_options .
-    DATA it_ucomm TYPE zse_tt_do_sorted_look_up .
+    DATA it_filter TYPE zif_do_seo=>tt_selection_options.
+    DATA it_selection TYPE zif_do_seo=>tt_selection_options.
+    DATA it_ucomm TYPE zif_do_se=>tt_sorted_look_up.
     DATA source_id TYPE zdo_object_id .
     DATA alv_layout TYPE slis_vari .
     DATA lg_go_to_alv TYPE char1 .

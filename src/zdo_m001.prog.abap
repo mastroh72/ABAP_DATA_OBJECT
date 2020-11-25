@@ -184,7 +184,7 @@ DEFINE convert_so_method_generic.
            im_field_name = im_field
          importing
            ex_data_type = c_data_type.
-  call function 'ZTB_TOOLS_01_RANGE_MAP_SO'
+  call function 'Z_DO_TB_TOOLS_01_RANGE_MAP_SO'
        exporting
             fieldname            = im_field
             data_type            = c_data_type
@@ -205,7 +205,7 @@ DEFINE convert_so_method.
            im_field_name = im_field
          importing
            ex_data_type = c_data_type.
-  call function 'ZTB_TOOLS_01_RANGE_MAP_SO'
+  call function 'Z_DO_TB_TOOLS_01_RANGE_MAP_SO'
        exporting
             fieldname            = im_field
             data_type            = c_data_type
@@ -226,7 +226,7 @@ DEFINE convert_so_method_filter.
            im_field_name = im_field
          importing
            ex_data_type = c_data_type.
-  call function 'ZTB_TOOLS_01_RANGE_MAP_SO'
+  call function 'Z_DO_TB_TOOLS_01_RANGE_MAP_SO'
        exporting
             fieldname            = im_field
             data_type            = c_data_type

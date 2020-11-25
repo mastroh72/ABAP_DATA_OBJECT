@@ -1,8 +1,8 @@
-FUNCTION ztb_tools_01_selection.
+FUNCTION Z_DO_TB_TOOLS_01_SELECTION.
 *"----------------------------------------------------------------------
 *"*"Local Interface:
 *"  TABLES
-*"      IT_SELECTION TYPE  ZSLOT_TT_DO_SELECTION_OPTIONS
+*"      IT_SELECTION TYPE  ZDO01_TT_SELECTION_OPTIONS
 *"      IT_FIELD_LIST TYPE  SPAR_DFIES
 *"----------------------------------------------------------------------
 

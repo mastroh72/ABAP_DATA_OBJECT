@@ -1,12 +1,12 @@
-FUNCTION ZTB_TOOLS_01_FIND.
-*"----------------------------------------------------------------------
+FUNCTION Z_DO_TB_TOOLS_01_FIND.
+*"--------------------------------------------------------------------
 *"*"Local Interface:
 *"  TABLES
 *"      FINDIN TYPE  TABLE
 *"      FIELDS TYPE  ZTT_DO_TB_FIELD_TO_SEARCH
 *"  CHANGING
 *"     REFERENCE(SEARCHPARMS) TYPE  ZST_DO_SEARCHPARMS
-*"----------------------------------------------------------------------
+*"--------------------------------------------------------------------
 * logic compied from function group wbmessages
 
 

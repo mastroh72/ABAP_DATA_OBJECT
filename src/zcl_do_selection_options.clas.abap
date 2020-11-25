@@ -5,7 +5,7 @@ class ZCL_DO_SELECTION_OPTIONS definition
 public section.
 
   constants CO_QUOTE type CHAR1 value '''' ##NO_TEXT.
-  constants CO_CHAR_0 type ZSLOT_DO_HEX_SEPERATOR value '00' ##NO_TEXT.
+  constants CO_CHAR_0 type ZIF_DO_SEO=>td_hex_seperator value '00' ##NO_TEXT.
   class-data C_QUOTE_CHAR_0 type CHAR2 read-only .
   class-data C_DOUBLE_QUOTE type CHAR2 read-only .
   data FILTER_ON type CHAR1 read-only .
@@ -27,11 +27,11 @@ public section.
       HIGH_MISSING .
   methods ADD_CONDITION_BY_SELECTION
     importing
-      !IM_IT_SELECTION type ZSLOT_TT_DO_SELECTION_OPTIONS
+      !IM_IT_SELECTION type ZIF_DO_SEO=>tt_selection_options
       !IM_REFRESH_FIELDNAMES type CHAR1 .
   methods ADD_CONDITION_BY_SEL_FILTER
     importing
-      !IM_IT_SELECTION type ZSLOT_TT_DO_SELECTION_OPTIONS
+      !IM_IT_SELECTION type ZIF_DO_SEO=>tt_selection_options
       !IM_REFRESH_FIELDNAMES type CHAR1 .
   methods ASK_SELECTION_OPTIONS
     importing
@@ -61,7 +61,7 @@ public section.
     importing
       !IM_FIELD_NAME type FIELDNAME optional
     returning
-      value(RE_RANGE) type ZSLOT_TT_DO_SELECTION_OPTIONS .
+      value(RE_RANGE) type ZIF_DO_SEO=>tt_selection_options .
   methods GET_DATABASE_WHERE
     exporting
       !EX_IT_WHERE_CLAUSE type ZTT_DO_WHERE_CLAUSE .
@@ -74,7 +74,7 @@ public section.
       NO_FIELD_FOUND .
   methods GET_FIELD_VALUE
     exporting
-      !EX_IT_FIELD_VALUES type ZSLOT_TT_DO_FIELD_VALUES .
+      !EX_IT_FIELD_VALUES type ZIF_DO_SEO=>tt_field_values .
   methods GET_FILTER_ON
     exporting
       value(EX_FILTER_ON) type CHAR1 .
@@ -120,8 +120,8 @@ public section.
       !IM_IT_VALID_FIELDS type SPAR_DFIES .
 protected section.
 
-  data IT_FIELD_VALUES type ZSLOT_TT_DO_FIELD_VALUES .
-  data IT_SELECTION type ZSLOT_TT_DO_SELECTION_OPTIONS .
+  data IT_FIELD_VALUES type ZIF_DO_SEO=>tt_field_values .
+  data IT_SELECTION type ZIF_DO_SEO=>tt_selection_options .
   data IT_VALID_FIELDS type SPAR_DFIES .
   data ASK_FILTER_ON type CHAR1 .
 
@@ -138,8 +138,8 @@ CLASS ZCL_DO_SELECTION_OPTIONS IMPLEMENTATION.
 * ...
 
     DATA :
-      wa_selection   TYPE zslot_st_do_selection_options,
-      wa_fieldvalues TYPE zslot_st_do_field_values.
+      wa_selection   TYPE ZIF_DO_SEO=>ts_selection_options,
+      wa_fieldvalues TYPE ZIF_DO_SEO=>ts_field_values.
     FIELD-SYMBOLS :
       <high>            TYPE any,
       <low>             TYPE any,
@@ -320,7 +320,7 @@ CLASS ZCL_DO_SELECTION_OPTIONS IMPLEMENTATION.
           APPEND wa_selection TO it_selection.
         ENDIF.
       ENDLOOP.
-      CALL FUNCTION 'ZTB_TOOLS_01_SELECTION'
+      CALL FUNCTION 'Z_DO_TB_TOOLS_01_SELECTION'
         TABLES
           it_selection  = it_selection
           it_field_list = it_valid_fields
@@ -335,7 +335,7 @@ CLASS ZCL_DO_SELECTION_OPTIONS IMPLEMENTATION.
       ENDIF.
 
 *    ELSE.
-*      CALL FUNCTION 'ZTB_TOOLS_01_FILTER'
+*      CALL FUNCTION 'Z_DO_TB_TOOLS_01_FILTER'
 *        EXPORTING
 *          im_ask_filter_on = ask_filter_on
 *        TABLES
@@ -368,7 +368,7 @@ CLASS ZCL_DO_SELECTION_OPTIONS IMPLEMENTATION.
 
     FIELD-SYMBOLS   :
       <fieldvalue>     TYPE any,
-      <wa_fieldvalues> TYPE zslot_st_do_field_values.
+      <wa_fieldvalues> TYPE ZIF_DO_SEO=>ts_field_values.
 
     READ TABLE it_field_values ASSIGNING <wa_fieldvalues>
       WITH KEY fieldname = im_field_name.
@@ -442,7 +442,7 @@ CLASS ZCL_DO_SELECTION_OPTIONS IMPLEMENTATION.
 
     FIELD-SYMBOLS   :
       <fieldvalue>     TYPE any,
-      <wa_fieldvalues> TYPE zslot_st_do_field_values.
+      <wa_fieldvalues> TYPE ZIF_DO_SEO=>ts_field_values.
 
     IF im_field_name IS INITIAL.
       LOOP AT it_field_values ASSIGNING <wa_fieldvalues>.
@@ -535,7 +535,7 @@ CLASS ZCL_DO_SELECTION_OPTIONS IMPLEMENTATION.
     FIELD-SYMBOLS :
       <high>         TYPE any,
       <low>          TYPE any,
-      <wa_selection> TYPE zslot_st_do_selection_options.
+      <wa_selection> TYPE ZIF_DO_SEO=>ts_selection_options.
 
     SORT it_selection BY fieldname sign DESCENDING option.
 
@@ -736,8 +736,8 @@ CLASS ZCL_DO_SELECTION_OPTIONS IMPLEMENTATION.
 * ...
 
 *  DATA :
-*        wa_selection TYPE zslot_st_do_selection_options,
-*        wa_fieldvalues TYPE zslot_st_do_field_values.
+*        wa_selection TYPE ZIF_DO_SEO=>ZSLOT_st_do_selection_options,
+*        wa_fieldvalues TYPE ZIF_DO_SEO=>ZSLOT_st_do_field_values.
 *  FIELD-SYMBOLS :
 *    <high> TYPE ANY,
 *    <low> TYPE ANY,
@@ -819,8 +819,8 @@ CLASS ZCL_DO_SELECTION_OPTIONS IMPLEMENTATION.
 *IT_SELECTION
 *IT_VALID_FIELDS
 *
-*zslot_tt_do_field_values
-*zslot_tt_do_selection_options
+*ZIF_DO_SEO=>ZSLOT_tt_do_field_values
+*ZIF_DO_SEO=>ZSLOT_tt_do_selection_options
 *SPAR_DFIES
 
     FIELD-SYMBOLS   :
@@ -828,8 +828,8 @@ CLASS ZCL_DO_SELECTION_OPTIONS IMPLEMENTATION.
       <fieldvalue>     TYPE any,
       <high>           TYPE any,
       <low>            TYPE any,
-      <wa_selection>   TYPE zslot_st_do_selection_options,
-      <wa_fieldvalues> TYPE zslot_st_do_field_values.
+      <wa_selection>   TYPE ZIF_DO_SEO=>ts_selection_options,
+      <wa_fieldvalues> TYPE ZIF_DO_SEO=>ts_field_values.
 
     DATA :
       istrue_e TYPE c,
